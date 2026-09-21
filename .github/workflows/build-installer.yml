@@ -1,4 +1,4 @@
-# 배포용 Windows 설치 파일(install.exe)을 GitHub에서 대신
+# 배포용 Windows 설치 파일(SafetyLawMonitor_Setup.exe)을 GitHub에서 대신
 # 만들어주는 자동화.
 #
 # [왜 필요한가]
@@ -11,8 +11,8 @@
 # 2. 왼쪽 목록에서 "Windows 설치 파일 빌드" 선택
 # 3. 오른쪽 "Run workflow" 버튼 > 초록 "Run workflow" 클릭
 # 4. 5~10분 뒤 실행 결과 페이지 아래 Artifacts의
-#    "install" 을 클릭해 zip 내려받기
-#    (압축을 풀면 install.exe - 이 파일을 보내주면 된다)
+#    "SafetyLawMonitor_Setup" 을 클릭해 zip 내려받기
+#    (압축을 풀면 SafetyLawMonitor_Setup.exe - 이 파일을 보내주면 된다)
 #
 # [국가법령정보센터 OC 키 넣기 - 권장]
 # 저장소 Settings > Secrets and variables > Actions > New repository secret 에서
@@ -54,6 +54,6 @@ jobs:
       - name: 설치 파일 올리기
         uses: actions/upload-artifact@v4
         with:
-          name: install
-          path: installer/build/install.exe
+          name: SafetyLawMonitor_Setup
+          path: installer/build/SafetyLawMonitor_Setup.exe
           retention-days: 30

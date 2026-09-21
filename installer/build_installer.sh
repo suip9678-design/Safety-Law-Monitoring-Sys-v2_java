@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# 배포용 Windows 설치 파일(install.exe)을 만드는 전체 과정을
+# 배포용 Windows 설치 파일(SafetyLawMonitor_Setup.exe)을 만드는 전체 과정을
 # 순서대로 실행한다.
 #
 # 사용법:
@@ -100,4 +100,4 @@ echo "[6/6] 설치 프로그램(NSIS) 빌드"
 ( cd "$INSTALLER_DIR" && makensis -INPUTCHARSET UTF8 setup.nsi )
 
 echo
-echo "완료: $BUILD_DIR/install.exe"
+echo "완료: $BUILD_DIR/SafetyLawMonitor_Setup.exe"

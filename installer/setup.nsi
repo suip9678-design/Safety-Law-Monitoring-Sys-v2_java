@@ -30,7 +30,7 @@ Unicode true
 !include "LogicLib.nsh"
 
 Name "안전보건 법령·고시 Monitoring"
-OutFile "build\install.exe"
+OutFile "build\SafetyLawMonitor_Setup.exe"
 InstallDir "$LOCALAPPDATA\Programs\SafetyLawMonitor"
 ; user - 관리자 권한을 요구하지 않는다(설치할 때 "이 앱이 장치를 변경하도록
 ; 허용하시겠어요?" 창이 뜨지 않는다).
@@ -39,6 +39,8 @@ SetCompressor /SOLID lzma
 
 !define APP_NAME "안전보건 법령·고시 Monitoring"
 !define DESKTOP_EXE_NAME "안전보건 법령 모니터링.exe"
+; 시작 메뉴 바로가기 이름 - 바탕화면 아이콘을 지웠거나 못 찾을 때 다시 찾는 두 번째 통로.
+!define SHORTCUT_NAME "안전보건 법령 모니터링"
 ; 사용자 폴더 설치라 레지스트리도 HKLM(컴퓨터 전체)이 아니라 HKCU(이 사용자)에 쓴다.
 !define UNINSTALL_REG_KEY "Software\Microsoft\Windows\CurrentVersion\Uninstall\SafetyLawMonitor"
 !define APP_REG_KEY "Software\SafetyLawMonitor"
@@ -64,7 +66,10 @@ SetCompressor /SOLID lzma
   ; 다른 프로그램(다른 회사의 launcher.exe, 사용자가 쓰는 다른 파이썬 등)은
   ; 건드리지 않는다. uninstall.exe는 설치 폴더 안에서 실행될 수 있어(재설치가
   ; 부르는 `_?=` 방식) 자기 자신을 종료시키지 않도록 제외한다.
-  nsExec::ExecToLog 'powershell -NoProfile -WindowStyle Hidden -Command "Get-Process -ErrorAction SilentlyContinue | Where-Object { $$_.Path -like $\'*SafetyLawMonitor*$\' -and $$_.ProcessName -ne $\'uninstall$\' } | Stop-Process -Force"'
+  ; 주의: 경로에 "SafetyLawMonitor"가 들어있는지로 고르면 안 된다 - 설치 파일 자신의
+  ; 이름(SafetyLawMonitor_Setup.exe)도 걸려서 설치 프로그램이 스스로를 종료해버린다
+  ; (실제로 발생: 설치 창이 뜬 직후 아무 안내 없이 꺼짐). 그래서 설치 폴더 경로로 고른다.
+  nsExec::ExecToLog 'powershell -NoProfile -WindowStyle Hidden -Command "Get-Process -ErrorAction SilentlyContinue | Where-Object { $$_.Path -like $\'$INSTDIR\*$\' -and $$_.ProcessName -ne $\'uninstall$\' } | Stop-Process -Force"'
   Pop $0
   ; 종료된 프로세스가 붙잡고 있던 파일 핸들이 실제로 풀릴 때까지 잠깐 기다린다.
   Sleep 1500
@@ -90,7 +95,7 @@ Var ChoiceAction      ; "install" | "reinstall" | "uninstall" - 아래 선택 �
 Page custom ChoicePageCreate ChoicePageLeave
 
 !insertmacro MUI_PAGE_INSTFILES
-!define MUI_FINISHPAGE_RUN "$DESKTOP\${DESKTOP_EXE_NAME}"
+!define MUI_FINISHPAGE_RUN "$INSTDIR\launcher.exe"
 !define MUI_FINISHPAGE_RUN_TEXT "지금 바로 실행"
 !insertmacro MUI_PAGE_FINISH
 
@@ -219,8 +224,18 @@ Section "Install"
   File "launcher\launcher.exe"
 
   ; 바탕화면에는 실제 실행 파일을 그대로 하나 복사한다 (바로가기가 아님).
-  SetOutPath "$DESKTOP"
-  File "/oname=${DESKTOP_EXE_NAME}" "launcher\launcher.exe"
+  ; File 대신 CopyFiles /SILENT를 쓴다: 바탕화면 폴더에 쓸 수 없는 PC(사내 정책으로 막힌
+  ; 경우, 관리자 계정으로 대신 실행한 경우 등)에서도 설치가 "오류 무시/재시도" 창으로
+  ; 멈추지 않고, 아래에서 실제로 생겼는지 확인해 안내한다.
+  CopyFiles /SILENT "$INSTDIR\launcher.exe" "$DESKTOP\${DESKTOP_EXE_NAME}"
+
+  ; 시작 메뉴에도 바로가기를 하나 만든다(바탕화면 아이콘을 지워도 다시 찾을 수 있게).
+  CreateShortCut "$SMPROGRAMS\${SHORTCUT_NAME}.lnk" "$INSTDIR\launcher.exe"
+
+  ${IfNot} ${FileExists} "$DESKTOP\${DESKTOP_EXE_NAME}"
+    IfSilent +2
+    MessageBox MB_OK|MB_ICONEXCLAMATION "바탕화면에 실행 아이콘을 만들지 못했습니다.$\r$\n$\r$\n대신 시작 메뉴에서 '${SHORTCUT_NAME}'을(를) 찾아 실행하거나, 아래 파일을 직접 실행해주세요:$\r$\n$INSTDIR\launcher.exe"
+  ${EndIf}
   SetOutPath "$INSTDIR"
 
   ; 바탕화면의 실행 파일이 설치 폴더를 찾아올 수 있도록 실제 설치 경로를
@@ -250,6 +265,7 @@ Section "Uninstall"
   !insertmacro StopRunningApp
 
   Delete "$DESKTOP\${DESKTOP_EXE_NAME}"
+  Delete "$SMPROGRAMS\${SHORTCUT_NAME}.lnk"
   Delete "$INSTDIR\launcher.exe"
   Delete "$INSTDIR\server.log"
   Delete "$INSTDIR\uninstall.exe"
@@ -276,7 +292,7 @@ Section "Uninstall"
   ; 문의 대신 할 수 있는 것을 안내한다.
   IfSilent done_leftover_check
   ${If} ${FileExists} "$INSTDIR\python\pythonw.exe"
-    MessageBox MB_OK|MB_ICONEXCLAMATION "일부 파일이 사용 중이라 완전히 지우지 못했습니다.$\r$\n$\r$\n열려 있는 안전보건 프로그램 창을 모두 닫은 뒤, 설치 파일(install.exe)을 다시 실행해 '삭제만 하기'를 한 번 더 눌러주세요."
+    MessageBox MB_OK|MB_ICONEXCLAMATION "일부 파일이 사용 중이라 완전히 지우지 못했습니다.$\r$\n$\r$\n열려 있는 안전보건 프로그램 창을 모두 닫은 뒤, 설치 파일(SafetyLawMonitor_Setup.exe)을 다시 실행해 '삭제만 하기'를 한 번 더 눌러주세요."
   ${EndIf}
   done_leftover_check:
 SectionEnd

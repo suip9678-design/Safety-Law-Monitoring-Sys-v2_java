@@ -1,10 +1,28 @@
-﻿# 설치 파일(install.exe)을 이 PC에서 한 번에 만든다.
+﻿# 설치 파일(SafetyLawMonitor_Setup.exe)을 이 PC에서 한 번에 만든다.
 # 하는 일: (1) Go/NSIS/Python이 없으면 winget으로 설치 (2) backend\safety_law_tracker.db가 있으면
 # 법령 마스터를 뺀 배포용 DB를 만들어 포함(없으면 DB 없이 빌드) (3) installer/build_installer.sh 실행.
 # 사내 보안 프록시 때문에 필요한 우회(curl 인증서 해지 확인, pip 신뢰 호스트)는
 # 이번 실행에만 환경변수로 적용하고 PC 전역 설정은 건드리지 않는다.
 param([switch]$SkipFetch)   # 파이썬/wheel을 이미 받아둔 경우 재사용(재빌드용)
 $ErrorActionPreference = "Stop"
+
+# 콘솔 "빠른 편집 모드"를 끈다. 켜져 있으면 창을 마우스로 클릭(글자 선택)하는 순간
+# 프로그램 출력이 멈춰서 빌드가 멈춘 것처럼 보이고, Esc/Enter를 눌러야 다시 흐른다.
+try {
+    if (-not ('Win32.ConMode' -as [type])) {
+        Add-Type -Namespace Win32 -Name ConMode -MemberDefinition @'
+[DllImport("kernel32.dll")] public static extern IntPtr GetStdHandle(int n);
+[DllImport("kernel32.dll")] public static extern bool GetConsoleMode(IntPtr h, out uint m);
+[DllImport("kernel32.dll")] public static extern bool SetConsoleMode(IntPtr h, uint m);
+'@
+    }
+    $hIn = [Win32.ConMode]::GetStdHandle(-10)   # STD_INPUT_HANDLE
+    $mode = 0
+    if ([Win32.ConMode]::GetConsoleMode($hIn, [ref]$mode)) {
+        # 0x40 = ENABLE_QUICK_EDIT_MODE 끄기, 0x80 = ENABLE_EXTENDED_FLAGS(이게 있어야 반영됨)
+        [void][Win32.ConMode]::SetConsoleMode($hIn, [uint32](([int]$mode -bor 0x80) -band (-bnot 0x40)))
+    }
+} catch { }   # 콘솔이 아니거나 실패해도 빌드에는 영향 없음
 $installer = $PSScriptRoot
 $root = Split-Path -Parent $installer
 $build = Join-Path $installer "build"
@@ -84,6 +102,6 @@ if ($SkipFetch) { $buildArgs += "--skip-fetch" }
 & $bash @buildArgs
 if ($LASTEXITCODE -ne 0) { throw "빌드 실패 (위 로그 확인)" }
 
-$exe = Join-Path $build "install.exe"
+$exe = Join-Path $build "SafetyLawMonitor_Setup.exe"
 Write-Host ("`n완료: {0} ({1:N0} MB)" -f $exe, ((Get-Item $exe).Length / 1MB))
 explorer.exe $build

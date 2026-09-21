@@ -1,6 +1,6 @@
 # Windows 설치 파일 만들기
 
-`install.exe`를 만드는 빌드 파이프라인입니다. 이 설치 파일을
+`SafetyLawMonitor_Setup.exe`를 만드는 빌드 파이프라인입니다. 이 설치 파일을
 실행하면 사용자 PC의
 **`C:\Users\<사용자>\AppData\Local\Programs\SafetyLawMonitor\`** 안에
 파이썬 실행환경 + 앱 소스가 통째로 설치되고, **바탕화면에는 실행용 `.exe`
@@ -19,16 +19,19 @@
 
 ## IT를 모르는 사람에게 배포할 때 (요약)
 
-1. 아래 둘 중 한 방법으로 `install.exe`를 만든다.
+1. 아래 둘 중 한 방법으로 `SafetyLawMonitor_Setup.exe`를 만든다.
    - **GitHub에서 버튼으로 만들기(권장)**: 저장소 `Actions` 탭 >
      "Windows 설치 파일 빌드" > `Run workflow`. 끝나면 결과 페이지 아래
      Artifacts에서 내려받는다. 자세한 건
      `.github/workflows/build-installer.yml` 맨 위 주석 참고.
-   - **직접 빌드**: 아래 "한 번에 빌드하기" 참고(Linux 환경 필요).
-2. **OC 키를 꼭 넣어서 빌드한다**(`--oc` 옵션 또는 저장소 시크릿
-   `LAW_API_OC`). 넣지 않으면 받는 사람이 대시보드 설정 화면에서 키를 직접
-   입력해야 하고, 그 전까지는 예시 데이터(데모 모드)로만 보입니다.
-3. 받는 사람에게 **`install.exe` 와 `installer/설치안내.txt`
+   - **이 PC에서 직접 빌드(Windows)**: `installeruild_local.bat` 더블클릭. Go/NSIS/Python 확인,
+     DB 준비, 빌드까지 한 번에 합니다. (리눅스에서는 아래 "한 번에 빌드하기" 참고)
+2. **인증키는 배포자가 미리 설정해 둔다.** `build_local.bat`으로 만들면 `backend`의 DB에 저장된
+   국가법령정보센터 OC 키와 KOSHA 가이드 인증키가 그대로 설치 파일에 들어가서, 받는 사람은 키를
+   입력할 필요가 없습니다(그래서 사용자용 도움말·설치안내에도 키 안내가 없습니다). GitHub 자동 빌드는
+   DB를 넣을 수 없으니 그때만 저장소 시크릿 `LAW_API_OC`(또는 `--oc`)로 OC 키를 넣으세요. 넣지 않으면
+   받는 사람이 설정 화면에서 직접 입력해야 하고, 그 전까지는 예시 데이터(데모 모드)로만 보입니다.
+3. 받는 사람에게 **`SafetyLawMonitor_Setup.exe` 와 `installer/설치안내.txt`
    두 파일**을 함께 보낸다. `설치안내.txt`는 IT를 전혀 모르는 사람 기준으로
    쓴 설치·사용 설명서입니다(특히 처음 실행할 때 뜨는 "Windows의 PC 보호"
    경고창을 넘기는 방법이 들어 있습니다 - 코드 서명 인증서가 없는 설치
@@ -43,7 +46,7 @@ installer/build_installer.sh --db path/to/safety_law_tracker.db   # 미리 캐�
 installer/build_installer.sh --skip-fetch          # 파이썬/wheel을 다시 받지 않고 재빌드(반복 작업용)
 ```
 
-결과물: `installer/build/install.exe` (DB 포함 시 약 85MB)
+결과물: `installer/build/SafetyLawMonitor_Setup.exe` (DB 포함 시 약 85MB)
 
 `--oc`로 넣은 키는 배포판 `backend/.env`의 `LAW_API_OC` 값으로 들어갑니다.
 받는 사람이 설정 화면에서 다른 키로 바꾸는 것도 그대로 가능합니다.
