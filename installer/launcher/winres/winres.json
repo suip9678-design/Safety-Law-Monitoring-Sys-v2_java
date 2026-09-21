@@ -14,7 +14,7 @@
           "name": "SafetyLawMonitorLauncher",
           "version": "1.0.0.0"
         },
-        "description": "안전보건 법령·고시 Monitoring 실행기",
+        "description": "안전보건 정보 모니터링 실행기",
         "minimum-os": "win7",
         "execution-level": "as invoker",
         "ui-access": false,
@@ -43,14 +43,14 @@
           "0409": {
             "Comments": "",
             "CompanyName": "",
-            "FileDescription": "안전보건 법령·고시 Monitoring",
+            "FileDescription": "안전보건 정보 모니터링",
             "FileVersion": "1.0.0.0",
             "InternalName": "SafetyLawMonitorLauncher",
             "LegalCopyright": "",
             "LegalTrademarks": "",
             "OriginalFilename": "SafetyLawMonitorLauncher.exe",
             "PrivateBuild": "",
-            "ProductName": "안전보건 법령·고시 Monitoring",
+            "ProductName": "안전보건 정보 모니터링",
             "ProductVersion": "1.0.0.0",
             "SpecialBuild": ""
           }

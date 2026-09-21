@@ -37,7 +37,7 @@ _KST = zoneinfo.ZoneInfo("Asia/Seoul")
 models.Base.metadata.create_all(bind=engine)
 ensure_columns()
 
-app = FastAPI(title="안전보건 법령·고시 개정 추적 시스템")
+app = FastAPI(title="안전보건 정보 모니터링")
 app.add_middleware(BasicAuthMiddleware)
 
 app.include_router(laws.router)

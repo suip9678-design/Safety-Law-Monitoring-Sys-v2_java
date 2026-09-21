@@ -1,6 +1,6 @@
 ﻿@echo off
 chcp 65001 >nul
-rem 안전보건 법령·고시 개정 추적 시스템 - 더블클릭 실행용
+rem 안전보건 정보 모니터링 - 더블클릭 실행용
 rem
 rem PowerShell의 "실행 정책"을 시스템/계정에 영구히 바꾸지 않습니다.
 rem 아래 -ExecutionPolicy Bypass는 이 배치파일이 새로 띄우는 PowerShell
@@ -20,4 +20,4 @@ rem 실행되어 Ctrl+C를 눌러도 그 창 안에서 재시작 메뉴로 넘�
 rem -NoExit: run.ps1에서 예상치 못한 오류가 나서 스크립트가 중간에
 rem 끝나버려도 창이 그 즉시 닫히지 않고 남아있게 합니다. (이게 없으면
 rem 오류 메시지를 볼 새도 없이 창이 사라져서 뭐가 문제인지 알 수가 없음)
-start "안전보건 법령·고시 모니터링" powershell.exe -NoExit -NoProfile -ExecutionPolicy Bypass -File "%~dp0run.ps1"
+start "안전보건 정보 모니터링" powershell.exe -NoExit -NoProfile -ExecutionPolicy Bypass -File "%~dp0run.ps1"
