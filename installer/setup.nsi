@@ -59,7 +59,7 @@ SetCompressor /SOLID lzma
 ;
 ; 설치 섹션과 제거 섹션은 서로 다른 실행 파일로 컴파일되어 함수를 공유할 수
 ; 없어서, 매크로로 만들어 양쪽에 각각 펼쳐 넣는다.
-!macro StopRunningApp
+!macro StopRunningApp DIR
   ; /T - 자식 프로세스까지 함께 종료한다(런처가 띄운 pythonw.exe 서버가 이
   ; 런처의 자식 프로세스라, 이 옵션 하나로 서버까지 같이 정리된다).
   nsExec::ExecToLog 'taskkill /F /T /IM "${DESKTOP_EXE_NAME}"'
@@ -75,7 +75,12 @@ SetCompressor /SOLID lzma
   ; 주의: 경로에 "SafetyLawMonitor"가 들어있는지로 고르면 안 된다 - 설치 파일 자신의
   ; 이름(SafetyLawMonitor_Setup.exe)도 걸려서 설치 프로그램이 스스로를 종료해버린다
   ; (실제로 발생: 설치 창이 뜬 직후 아무 안내 없이 꺼짐). 그래서 설치 폴더 경로로 고른다.
-  nsExec::ExecToLog 'powershell -NoProfile -WindowStyle Hidden -Command "Get-Process -ErrorAction SilentlyContinue | Where-Object { $$_.Path -like $\'$INSTDIR\*$\' -and $$_.ProcessName -ne $\'uninstall$\' } | Stop-Process -Force"'
+  ; 또한 경로는 Get-Process가 아니라 WMI(ExecutablePath)로 읽는다: 이 설치 프로그램은 32비트라
+  ; 여기서 뜨는 powershell도 32비트인데, 32비트 PowerShell의 Get-Process는 64비트 프로세스
+  ; (launcher.exe, pythonw.exe)의 경로를 읽지 못해 아무것도 종료하지 못한다. 그러면 켜 둔 채
+  ; 재설치/삭제할 때 python3.dll이 사용 중이라 "다음 파일을 열 수 없습니다" 오류가 난다.
+  ; (설치 폴더의 launcher.exe로 실행한 경우 이름이 launcher.exe라 위 이름 기준 종료에도 안 걸린다.)
+  nsExec::ExecToLog 'powershell -NoProfile -WindowStyle Hidden -Command "Get-WmiObject Win32_Process | Where-Object { $$_.ExecutablePath -like $\'${DIR}\*$\' -and $$_.Name -ne $\'uninstall.exe$\' } | ForEach-Object { Stop-Process -Id $$_.ProcessId -Force -ErrorAction SilentlyContinue }"'
   Pop $0
   ; 종료된 프로세스가 붙잡고 있던 파일 핸들이 실제로 풀릴 때까지 잠깐 기다린다.
   Sleep 1500
@@ -141,6 +146,10 @@ Function RemovePreviousInstall
     ; 새 설치는 다른 폴더(사용자 폴더)로 진행되니 문제는 없다.
     MessageBox MB_OK|MB_ICONINFORMATION "예전 버전이 관리자 권한으로 설치되어 있어, 이를 지우는 동안 Windows가 권한을 묻는 창을 띄울 수 있습니다. '예'를 눌러주세요.$\r$\n$\r$\n(권한이 없어 지우지 못하더라도 새 버전 설치는 그대로 진행됩니다.)"
   ${EndIf}
+  ; 삭제 프로그램을 부르기 전에 이 설치 프로그램이 먼저 실행 중인 프로그램을 끈다.
+  ; 이미 설치되어 있던 uninstall.exe는 예전 버전의 종료 코드를 갖고 있어(32비트 PowerShell 문제 등)
+  ; 켜 둔 프로그램을 못 끄고 파일도 못 지울 수 있기 때문이다.
+  !insertmacro StopRunningApp "$PrevInstallDir"
   ExecWait '"$PrevInstallDir\uninstall.exe" /S _?=$PrevInstallDir'
 FunctionEnd
 
@@ -210,7 +219,7 @@ Section "Install"
   SetShellVarContext current
 
   ; 프로그램을 켜둔 채로 새 버전을 설치하는 경우를 대비해 먼저 종료시킨다.
-  !insertmacro StopRunningApp
+  !insertmacro StopRunningApp "$INSTDIR"
 
   SetOutPath "$INSTDIR\python"
   File /r "build\payload\python\*.*"
@@ -272,7 +281,7 @@ Section "Uninstall"
 
   ; 실행 중이면 먼저 종료 - 안 그러면 아래 Delete/RMDir이 조용히 실패해서
   ; 바탕화면 아이콘과 파이썬 폴더가 남는다.
-  !insertmacro StopRunningApp
+  !insertmacro StopRunningApp "$INSTDIR"
 
   Delete "$DESKTOP\${DESKTOP_EXE_NAME}"
   Delete "$SMPROGRAMS\${SHORTCUT_NAME}.lnk"
