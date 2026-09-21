@@ -1,0 +1,59 @@
+# 배포용 Windows 설치 파일(install.exe)을 GitHub에서 대신
+# 만들어주는 자동화.
+#
+# [왜 필요한가]
+# installer/build_installer.sh는 Linux(bash, go, makensis)에서 도는 스크립트라
+# Windows PC에서는 그대로 실행할 수 없다. 이 워크플로를 쓰면 GitHub 사이트에서
+# 버튼만 눌러 설치 파일을 만들고 내려받을 수 있다.
+#
+# [쓰는 법]
+# 1. GitHub 저장소 페이지 > 위쪽 Actions 탭
+# 2. 왼쪽 목록에서 "Windows 설치 파일 빌드" 선택
+# 3. 오른쪽 "Run workflow" 버튼 > 초록 "Run workflow" 클릭
+# 4. 5~10분 뒤 실행 결과 페이지 아래 Artifacts의
+#    "install" 을 클릭해 zip 내려받기
+#    (압축을 풀면 install.exe - 이 파일을 보내주면 된다)
+#
+# [국가법령정보센터 OC 키 넣기 - 권장]
+# 저장소 Settings > Secrets and variables > Actions > New repository secret 에서
+# 이름을 LAW_API_OC 로, 값에 본인 OC 키를 넣어두면, 빌드되는 설치 파일에 키가
+# 미리 들어간다. 그러면 받는 사람은 설정 화면에서 키를 입력할 필요 없이 설치
+# 직후부터 실제 법령 데이터로 바로 쓸 수 있다. 등록하지 않으면 키 없이 빌드되어,
+# 받는 사람이 대시보드 > 설정에서 직접 키를 넣기 전까지 예시 데이터(데모 모드)로
+# 동작한다.
+name: Windows 설치 파일 빌드
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-go@v5
+        with:
+          go-version: '1.21'
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      # NSIS - 설치 프로그램(.exe)을 만드는 도구
+      - name: NSIS 설치
+        run: sudo apt-get update && sudo apt-get install -y nsis
+
+      - name: 설치 파일 빌드
+        env:
+          # 저장소 시크릿에 LAW_API_OC가 없으면 빈 값이 되고, 그 경우
+          # build_installer.sh는 키 없이(데모 모드로) 빌드한다.
+          LAW_API_OC: ${{ secrets.LAW_API_OC }}
+        run: bash installer/build_installer.sh --oc "$LAW_API_OC"
+
+      - name: 설치 파일 올리기
+        uses: actions/upload-artifact@v4
+        with:
+          name: install
+          path: installer/build/install.exe
+          retention-days: 30

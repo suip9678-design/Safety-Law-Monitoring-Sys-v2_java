@@ -1,0 +1,16 @@
+__pycache__/
+*.pyc
+.venv/
+venv/
+backend/.env
+*.db
+*.log
+backend/kosha_guide_files/
+.DS_Store
+
+# 설치 파일 빌드 산출물(파이썬 실행환경, 다운로드한 wheel, 빌드된 exe 등) -
+# 용량이 크고 installer/build_installer.sh로 언제든 다시 만들 수 있어
+# 저장소에는 올리지 않는다.
+installer/build/
+installer/launcher/launcher.exe
+installer/launcher/*.syso

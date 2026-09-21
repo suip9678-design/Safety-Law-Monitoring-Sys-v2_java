@@ -1,0 +1,1778 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>안전보건 법령·고시 개정 추적 (미리보기)</title>
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiIgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIj4KICA8cmVjdCB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHJ4PSI4IiBmaWxsPSIjMDk2OWRhIi8+CiAgPHBhdGggZD0iTTE2IDYuNWw4IDN2Ni4yYzAgNS42LTMuNCA5LjktOCAxMS4zLTQuNi0xLjQtOC01LjctOC0xMS4zVjkuNWw4LTN6IiBmaWxsPSIjZmZmZmZmIiBmaWxsLW9wYWNpdHk9IjAuMTQiLz4KICA8cGF0aCBkPSJNMTYgNi41bDggM3Y2LjJjMCA1LjYtMy40IDkuOS04IDExLjMtNC42LTEuNC04LTUuNy04LTExLjNWOS41bDgtM3oiIHN0cm9rZT0iI2ZmZmZmZiIgc3Ryb2tlLXdpZHRoPSIxLjYiIGZpbGw9Im5vbmUiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KICA8cGF0aCBkPSJNMTIuMyAxNi4ybDIuNiAyLjYgNS01LjQiIHN0cm9rZT0iI2ZmZmZmZiIgc3Ryb2tlLXdpZHRoPSIxLjkiIGZpbGw9Im5vbmUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgo8L3N2Zz4K" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pretendard/1.3.9/static/pretendard-dynamic-subset.min.css" />
+<style>
+/*
+  디자인 시스템 참고:
+  - 색상/여백/타이포 토큰: GitHub Primer(github.com/primer) 컨벤션을 참고해 재구성
+  - 한글 서체: Pretendard(github.com/orioncactus/pretendard, OFL 라이선스, 상업적 사용 가능)
+*/
+:root {
+  color-scheme: light;
+  --bg: #f6f8fa;
+  --surface: #ffffff;
+  --surface-muted: #f6f8fa;
+  --border: #d0d7de;
+  --border-muted: #eaeef2;
+  --text: #1f2328;
+  --text-muted: #636c76;
+  --text-subtle: #6e7781;
+  --primary: #0969da;
+  --primary-dark: #0552a5;
+  --primary-subtle: #ddf4ff;
+  --danger: #d1242f;
+  --warn-bg: #eaeef2;
+  --warn-text: #57606a;
+  --ok-bg: #dafbe1;
+  --ok-text: #1a7f37;
+  --pending-bg: #ffebe9;
+  --pending-text: #d1242f;
+  --progress-bg: #fff8c5;
+  --progress-text: #9a6700;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --shadow-sm: 0 1px 2px rgba(31, 35, 40, 0.06);
+  --shadow-md: 0 4px 14px rgba(31, 35, 40, 0.08);
+  --shadow-modal: 0 20px 50px rgba(31, 35, 40, 0.28);
+  --font-sans: "Pretendard", "Pretendard Variable", -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
+}
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body { margin: 0; font-family: var(--font-sans); font-size: 14px; line-height: 1.5; background: var(--bg); color: var(--text); -webkit-font-smoothing: antialiased; }
+h1, h2, h3 { font-family: var(--font-sans); letter-spacing: -0.01em; }
+.banner { background: #1f2328; color: #fff; padding: 10px 24px; font-size: 13px; text-align: center; }
+.banner b { color: #ffd166; }
+.topbar { display: flex; align-items: center; justify-content: space-between; padding: 14px 24px; background: var(--surface); border-bottom: 1px solid var(--border); box-shadow: var(--shadow-sm); position: sticky; top: 0; z-index: 40; }
+.topbar-brand { display: flex; align-items: center; gap: 10px; }
+.topbar-logo { width: 30px; height: 30px; border-radius: 8px; flex-shrink: 0; }
+.topbar h1 { font-size: 17px; font-weight: 700; margin: 0; }
+.topbar-actions { display: flex; align-items: center; gap: 10px; }
+.tabs { display: flex; align-items: center; gap: 2px; padding: 0 24px; background: var(--surface); border-bottom: 1px solid var(--border); overflow-x: auto; }
+.tab-btn { border: none; background: none; padding: 13px 14px; font-size: 14px; font-family: var(--font-sans); cursor: pointer; color: var(--text-muted); border-bottom: 2px solid transparent; white-space: nowrap; border-radius: var(--radius-sm) var(--radius-sm) 0 0; transition: color 0.15s ease, background-color 0.15s ease; }
+.tab-btn:hover { color: var(--text); background: var(--surface-muted); }
+.tab-btn.active { color: var(--primary); border-bottom-color: var(--primary); font-weight: 600; }
+.tab-btn.active:hover { background: none; }
+.tabs-divider { align-self: center; font-size: 11px; color: var(--text-subtle); border-left: 1px solid var(--border); padding-left: 10px; margin-left: 6px; white-space: nowrap; }
+main { padding: 24px 24px 64px; max-width: 1180px; margin: 0 auto; }
+.tab-panel { display: none; }
+#tab-dashboard { background: linear-gradient(180deg, #e8f2fc 0%, #f6fafd 55%, var(--bg) 100%); border-radius: var(--radius-lg); padding: 20px; margin: -20px -20px 0; }
+.tab-panel.active { display: block; animation: fade-in 0.15s ease; }
+@keyframes fade-in { from { opacity: 0; transform: translateY(2px); } to { opacity: 1; transform: translateY(0); } }
+.panel-box { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 20px 22px; margin-bottom: 20px; box-shadow: var(--shadow-sm); }
+.panel-box h2 { margin-top: 0; font-size: 15px; font-weight: 700; }
+h2 { font-size: 16px; font-weight: 700; margin: 28px 0 6px; }
+main > h2:first-child { margin-top: 0; }
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 12px; margin-bottom: 28px; }
+.card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); padding: 16px 18px; box-shadow: var(--shadow-sm); transition: box-shadow 0.15s ease, transform 0.15s ease; }
+.card:hover { box-shadow: var(--shadow-md); transform: translateY(-1px); }
+.card .value { font-size: 26px; font-weight: 700; letter-spacing: -0.02em; }
+.card .value.value-sm { font-size: 14px; font-weight: 600; }
+.card .label { font-size: 12.5px; color: var(--text-muted); margin-top: 4px; }
+.row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin-bottom: 12px; }
+input[type="text"], input[type="number"], select, textarea { padding: 8px 11px; border: 1px solid var(--border); border-radius: var(--radius-sm); font-size: 14px; font-family: var(--font-sans); background: var(--surface); color: var(--text); transition: border-color 0.12s ease, box-shadow 0.12s ease; }
+input[type="text"]:focus, input[type="number"]:focus, select:focus, textarea:focus { outline: none; border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-subtle); }
+textarea { min-height: 60px; width: 100%; font-family: var(--font-sans); }
+.btn { padding: 8px 15px; border-radius: var(--radius-sm); border: 1px solid var(--border); background: var(--surface); color: var(--text); cursor: pointer; font-size: 14px; font-family: var(--font-sans); font-weight: 500; transition: border-color 0.12s ease, background-color 0.12s ease, box-shadow 0.12s ease, opacity 0.12s ease; }
+.btn:hover { border-color: var(--primary); color: var(--primary); }
+.btn:active { transform: translateY(1px); }
+.btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.btn:disabled:hover { border-color: var(--border); color: var(--text); }
+.btn-primary { background: var(--primary); border-color: var(--primary); color: #fff; }
+.btn-primary:hover { background: var(--primary-dark); border-color: var(--primary-dark); color: #fff; }
+table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+th, td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--border-muted); vertical-align: top; }
+th { color: var(--text-muted); font-weight: 600; font-size: 12.5px; background: var(--surface-muted); }
+tbody tr { transition: background-color 0.1s ease; }
+tbody tr:hover { background: var(--surface-muted); }
+tbody tr:last-child td { border-bottom: none; }
+.table-wrap { overflow-x: auto; overflow-y: auto; max-height: 480px; background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius-md); box-shadow: var(--shadow-sm); }
+.table-wrap table { border: none; }
+.table-wrap thead th { position: sticky; top: 0; z-index: 1; }
+#revisionsTable th, #revisionsTable td { text-align: center; }
+#revisionsTable th:nth-child(2), #revisionsTable td:nth-child(2) { text-align: left; }
+#recentLawRevisions th, #recentLawRevisions td, #searchResults th, #searchResults td, #lawsTable th, #lawsTable td, #newAdmrulCandidates th, #newAdmrulCandidates td { text-align: center; }
+#recentLawRevisions th:nth-child(1), #recentLawRevisions td:nth-child(1), #searchResults th:nth-child(1), #searchResults td:nth-child(1), #lawsTable th:nth-child(1), #lawsTable td:nth-child(1), #newAdmrulCandidates th:nth-child(1), #newAdmrulCandidates td:nth-child(1) { text-align: left; }
+#lawsTable .law-group-row td { text-align: left; }
+#keywordSearchResults th, #keywordSearchResults td { text-align: center; }
+#keywordSearchResults th:nth-child(1), #keywordSearchResults td:nth-child(1), #keywordSearchResults th:nth-child(5), #keywordSearchResults td:nth-child(5) { text-align: left; }
+.search-snippet { color: var(--text-muted); font-size: 12.5px; }
+.search-snippet mark { background: var(--pending-bg); color: var(--pending-text); border-radius: 3px; padding: 0 2px; }
+#recentDocImpacts th, #recentDocImpacts td, #docRevisionsTable th, #docRevisionsTable td { text-align: center; }
+#recentDocImpacts th:nth-child(1), #recentDocImpacts td:nth-child(1), #recentDocImpacts th:nth-last-child(3), #recentDocImpacts td:nth-last-child(3), #docRevisionsTable th:nth-child(1), #docRevisionsTable td:nth-child(1), #docRevisionsTable th:nth-last-child(3), #docRevisionsTable td:nth-last-child(3) { text-align: left; }
+.badge { display: inline-block; padding: 2px 9px; border-radius: 999px; font-size: 11.5px; font-weight: 600; white-space: nowrap; }
+.badge-warn { background: var(--warn-bg); color: var(--warn-text); }
+.badge-pending { background: var(--pending-bg); color: var(--pending-text); }
+.badge-progress { background: var(--progress-bg); color: var(--progress-text); }
+.badge-ok { background: var(--ok-bg); color: var(--ok-text); }
+.badge-select { display: inline-block; padding: 2px 22px 2px 9px; border-radius: 999px; font-size: 11.5px; font-weight: 600; font-family: inherit; white-space: nowrap; border: none; cursor: pointer; appearance: none; -webkit-appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16' fill='none'%3E%3Cpath d='M4 6l4 4 4-4' stroke='currentColor' stroke-width='1.6' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 6px center; background-size: 12px; }
+.badge-select:hover { filter: brightness(0.96); }
+.badge-select:focus-visible { outline: 2px solid var(--primary); outline-offset: 1px; }
+.tag-chip { display: inline-block; padding: 1px 8px; border-radius: 999px; font-size: 11.5px; font-weight: 500; white-space: nowrap; background: var(--pending-bg); color: var(--pending-text); margin: 1px 2px 1px 0; }
+.tag-badge { display: inline-block; padding: 1px 7px; border-radius: 999px; font-size: 10.5px; font-weight: 600; white-space: nowrap; background: var(--progress-bg); color: var(--progress-text); vertical-align: middle; }
+.grid-form { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+.grid-form label { display: flex; flex-direction: column; gap: 5px; font-size: 13px; color: var(--text-muted); font-weight: 500; }
+.grid-form .full { grid-column: 1 / -1; }
+.form-actions { grid-column: 1 / -1; display: flex; gap: 8px; }
+.hint { font-size: 12px; color: var(--text-muted); }
+.checkbox-list { display: flex; flex-direction: column; gap: 2px; max-height: 180px; overflow-y: auto; border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 6px 10px; background: var(--surface); }
+.checkbox-list label { display: flex !important; flex-direction: row !important; align-items: center; gap: 6px; font-size: 13px; color: var(--text); font-weight: normal; padding: 4px 2px; border-radius: 4px; }
+.checkbox-list label:hover { background: var(--surface-muted); }
+.empty { padding: 28px; text-align: center; color: var(--text-muted); font-size: 13px; }
+.modal-overlay { position: fixed; inset: 0; background: rgba(15, 20, 25, 0.5); display: flex; align-items: flex-start; justify-content: center; padding: 40px 16px; overflow-y: auto; z-index: 100; animation: overlay-in 0.12s ease; }
+@keyframes overlay-in { from { opacity: 0; } to { opacity: 1; } }
+.modal-box { position: relative; background: var(--surface); border-radius: var(--radius-lg); padding: 22px 26px 26px; width: 100%; max-width: 640px; box-shadow: var(--shadow-modal); animation: modal-in 0.16s cubic-bezier(0.2, 0.7, 0.3, 1); }
+@keyframes modal-in { from { opacity: 0; transform: translateY(8px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
+.modal-box h2 { margin-top: 0; padding-right: 28px; }
+.modal-close { position: absolute; top: 18px; right: 18px; width: 28px; height: 28px; border: none; background: none; border-radius: 999px; font-size: 18px; line-height: 1; color: var(--text-muted); cursor: pointer; display: flex; align-items: center; justify-content: center; transition: background-color 0.12s ease, color 0.12s ease; }
+.modal-close:hover { background: var(--surface-muted); color: var(--text); }
+.modal-box.modal-wide { max-width: 860px; }
+.help-toc { display: flex; flex-wrap: wrap; gap: 6px 10px; margin: 4px 0 18px; padding: 10px 12px; background: var(--surface-muted); border-radius: var(--radius-sm); }
+.help-toc a { font-size: 12.5px; font-weight: 500; text-decoration: none; }
+.help-toc a:hover { text-decoration: underline; }
+.help-content section { margin-bottom: 22px; }
+.help-content section:last-child { margin-bottom: 0; }
+.help-content h3 { font-size: 15px; margin: 0 0 8px; scroll-margin-top: 12px; }
+.help-content p { margin: 0 0 8px; color: var(--text); }
+.help-content ul, .help-content ol { margin: 0; padding-left: 20px; }
+.help-content li { margin-bottom: 7px; line-height: 1.55; }
+.help-content li:last-child { margin-bottom: 0; }
+.toast { position: fixed; bottom: 20px; right: 20px; background: var(--text); color: #fff; padding: 11px 16px; border-radius: var(--radius-sm); font-size: 13px; max-width: 360px; z-index: 200; box-shadow: var(--shadow-md); animation: toast-in 0.15s ease; }
+@keyframes toast-in { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+.toast.error { background: var(--danger); }
+.alarm-bell { border: 1px solid var(--border); background: var(--surface); border-radius: 999px; padding: 6px 13px; cursor: pointer; font-size: 14px; color: var(--text-muted); font-family: var(--font-sans); transition: border-color 0.12s ease, color 0.12s ease; }
+.alarm-bell:hover { border-color: var(--primary); color: var(--primary); }
+.alarm-bell.active { border-color: var(--danger); background: var(--pending-bg); color: var(--pending-text); font-weight: 600; animation: alarm-pulse 1.4s ease-in-out infinite; }
+@keyframes alarm-pulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(209, 36, 47, 0.35); } 50% { box-shadow: 0 0 0 6px rgba(209, 36, 47, 0); } }
+.link-btn { background: none; border: none; color: var(--primary); cursor: pointer; padding: 0; font-size: 13px; font-family: var(--font-sans); text-decoration: none; font-weight: 500; }
+.link-btn:hover { text-decoration: underline; }
+.law-group-row td { background: var(--surface-muted); color: var(--text-muted); font-size: 12px; font-weight: 700; padding: 7px 12px; }
+tr.law-row-alert td { background: var(--pending-bg); }
+tr.law-row-alert td:first-child { border-left: 3px solid var(--danger); }
+</style>
+</head>
+<body>
+  <div class="banner">
+    이 화면은 <b>미리보기 전용 데모</b>입니다. 실제 국가법령정보센터 API 호출 없이, 이 브라우저 안에만 데이터가 저장됩니다 (탭/창을 닫아도 같은 브라우저면 유지됨).
+    진짜로 쓰려면 서버 배포 버전이 필요합니다.
+  </div>
+
+  <header class="topbar">
+    <div class="topbar-brand">
+      <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAzMiAzMiIgd2lkdGg9IjMyIiBoZWlnaHQ9IjMyIj4KICA8cmVjdCB3aWR0aD0iMzIiIGhlaWdodD0iMzIiIHJ4PSI4IiBmaWxsPSIjMDk2OWRhIi8+CiAgPHBhdGggZD0iTTE2IDYuNWw4IDN2Ni4yYzAgNS42LTMuNCA5LjktOCAxMS4zLTQuNi0xLjQtOC01LjctOC0xMS4zVjkuNWw4LTN6IiBmaWxsPSIjZmZmZmZmIiBmaWxsLW9wYWNpdHk9IjAuMTQiLz4KICA8cGF0aCBkPSJNMTYgNi41bDggM3Y2LjJjMCA1LjYtMy40IDkuOS04IDExLjMtNC42LTEuNC04LTUuNy04LTExLjNWOS41bDgtM3oiIHN0cm9rZT0iI2ZmZmZmZiIgc3Ryb2tlLXdpZHRoPSIxLjYiIGZpbGw9Im5vbmUiIHN0cm9rZS1saW5lam9pbj0icm91bmQiLz4KICA8cGF0aCBkPSJNMTIuMyAxNi4ybDIuNiAyLjYgNS01LjQiIHN0cm9rZT0iI2ZmZmZmZiIgc3Ryb2tlLXdpZHRoPSIxLjkiIGZpbGw9Im5vbmUiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCIvPgo8L3N2Zz4K" alt="" class="topbar-logo" />
+      <h1>안전보건 법령·고시 개정 추적 (미리보기)</h1>
+    </div>
+    <div class="topbar-actions">
+      <button id="alarmBell" class="alarm-bell" hidden title="새 개정 확인 (클릭하면 확인 처리)">
+        🔔 <span id="alarmBellCount"></span>
+      </button>
+      <button id="helpBtn" class="btn" title="사용 설명서 보기">도움말</button>
+      <button id="simulateBtn" class="btn btn-primary">데모: 개정 시뮬레이션</button>
+      <button id="resetBtn" class="btn">데모 데이터 초기화</button>
+    </div>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab-btn active" data-tab="dashboard">대시보드</button>
+    <button class="tab-btn" data-tab="laws">법령 마스터</button>
+    <button class="tab-btn" data-tab="revisions">개정 이력</button>
+    <button class="tab-btn" data-tab="keyword-search">키워드 검색</button>
+    <span class="tabs-divider" title="법령 개정 확인(핵심 기능)이 안정적으로 자리잡은 뒤 점진적으로 확장해나가는 기능입니다">확장 기능</span>
+    <button class="tab-btn" data-tab="documents">사규</button>
+    <button class="tab-btn" data-tab="doc-revisions">사규 개정 이력</button>
+  </nav>
+
+  <main>
+    <section id="tab-dashboard" class="tab-panel active">
+      <div class="panel-box">
+        <form id="dashboardKeywordSearchForm" class="row" style="margin-bottom: 0;">
+          <input id="dashboardKeywordSearchInput" type="text" placeholder="키워드나 문장으로 법령·고시 본문을 검색합니다 (예: 화기작업)" style="flex: 1;" />
+          <button type="submit" class="btn btn-primary">키워드 검색</button>
+        </form>
+      </div>
+
+      <div class="cards" id="summaryCards"></div>
+
+      <h2>법령 개정 리스트</h2>
+      <p class="hint">등록해둔 법령·고시에 실제 재개정이 감지되면 여기에 모두 표시됩니다. (핵심 기능)</p>
+      <div id="recentLawRevisions" class="table-wrap"></div>
+
+      <h2>신규 제정 고시 후보</h2>
+      <p class="hint">아직 등록하지 않은 고시·예규·훈령 중, 소관부처+키워드에 모두 해당하는 것만 모아서 보여줍니다.</p>
+      <div id="newAdmrulCandidates" class="table-wrap"></div>
+
+      <h2>사내 절차서·지침서 개정 필요 사항</h2>
+      <p class="hint">근거 법령이 개정되어 아직 검토/반영되지 않은 절차서·지침서만 문서 기준으로 모아서 보여줍니다. (근거 법령 매핑 또는 키워드(해시태그) 자동 매칭 필요)</p>
+      <div id="recentDocImpacts" class="table-wrap"></div>
+    </section>
+
+    <section id="tab-laws" class="tab-panel">
+      <div class="panel-box">
+        <h2>법령·고시 검색해서 추가 (데모 데이터)</h2>
+        <div class="row">
+          <select id="searchSourceType">
+            <option value="all">전체(법령+행정규칙)</option>
+            <option value="law">법령(법률/시행령/시행규칙)</option>
+            <option value="admrul">행정규칙(고시/예규/훈령)</option>
+          </select>
+          <input id="searchQuery" type="text" placeholder="입력하면 자동으로 검색됩니다 (예: 산업안전보건법)" style="flex: 1; min-width: 240px;" />
+          <button id="searchBtn" class="btn">검색</button>
+        </div>
+        <div id="searchResults" class="table-wrap"></div>
+      </div>
+      <div class="panel-box">
+        <h2>플랜트건설업 기본 법령 세트</h2>
+        <p class="hint">데모 데이터 중 이름이 일치하는 항목만 추가됩니다 (실제 버전에서는 국가법령정보센터 전체를 검색합니다).</p>
+        <div class="row">
+          <button id="seedDefaultsBtn" class="btn btn-primary">기본 법령 세트 추가</button>
+        </div>
+        <div id="seedResults" class="table-wrap"></div>
+      </div>
+      <div class="panel-box">
+        <h2>현재 관리중인 법령</h2>
+        <div class="row">
+          <input id="lawsFilterInput" type="text" placeholder="이름/소관부처로 빠르게 찾기" />
+        </div>
+        <div id="lawsTable" class="table-wrap"></div>
+      </div>
+    </section>
+
+    <section id="tab-revisions" class="tab-panel">
+      <div class="row">
+        <label>상태 필터:
+          <select id="revisionStatusFilter">
+            <option value="">전체</option>
+            <option value="미검토">미검토</option>
+            <option value="검토중">검토중</option>
+            <option value="반영완료">반영완료</option>
+            <option value="해당없음">해당없음</option>
+          </select>
+        </label>
+        <input id="revisionsSearchInput" type="text" placeholder="법령명으로 빠르게 찾기" />
+        <span id="revisionLawFilterChip" hidden></span>
+      </div>
+      <div class="row">
+        <span id="revisionsSelectedCount" class="hint">0건 선택됨</span>
+        <select id="revisionsBulkStatus">
+          <option value="미검토">미검토</option>
+          <option value="검토중">검토중</option>
+          <option value="반영완료">반영완료</option>
+          <option value="해당없음">해당없음</option>
+        </select>
+        <button id="revisionsBulkApplyBtn" class="btn" disabled>선택 항목 일괄 변경</button>
+        <button id="revisionsBulkDeleteBtn" class="btn btn-danger" disabled>선택 항목 삭제</button>
+      </div>
+      <div id="revisionsTable" class="table-wrap"></div>
+    </section>
+
+    <section id="tab-keyword-search" class="tab-panel">
+      <div class="panel-box">
+        <h2>키워드 검색 (데모 데이터)</h2>
+        <p class="hint">
+          데모 데이터 중 조문 발췌(content)가 들어있는 항목을 대상으로 키워드나 문장을 검색합니다.
+          법령명뿐 아니라 본문 내용까지 검색되므로, 예를 들어 "화기작업"으로 검색하면 이름에
+          "화기작업"이 없어도 본문에 그 내용이 포함된 법령·고시까지 찾아줍니다.
+        </p>
+        <div class="row">
+          <select id="keywordSearchSourceType">
+            <option value="all">전체(법령+행정규칙)</option>
+            <option value="law">법령(법률/시행령/시행규칙)</option>
+            <option value="admrul">행정규칙(고시/예규/훈령)</option>
+          </select>
+          <input id="keywordSearchInput" type="text" placeholder="키워드 또는 문장으로 검색 (예: 화기작업)" style="flex: 1;" />
+          <button id="keywordSearchBtn" class="btn btn-primary">검색</button>
+        </div>
+        <div id="keywordSearchResults" class="table-wrap"></div>
+      </div>
+    </section>
+
+    <section id="tab-documents" class="tab-panel">
+      <div class="panel-box">
+        <div class="row" style="justify-content: space-between; margin-bottom: 0;">
+          <h2 style="margin: 0;">사규</h2>
+          <button id="docAddBtn" class="btn btn-primary">+ 사규 추가</button>
+        </div>
+      </div>
+      <div id="documentsTable" class="table-wrap"></div>
+    </section>
+
+    <section id="tab-doc-revisions" class="tab-panel">
+      <p class="hint">사규(회사 문서)와 관련된 개정 이력만 모아서 보여줍니다. "근거 법령"으로 직접 매핑했거나, "키워드(해시태그)"가 법령명/본문과 겹쳐 자동으로 매칭된 경우(<span class="tag-badge">#태그매칭</span> 표시) 모두 포함됩니다. 사규 추가/수정 화면에서 설정합니다.</p>
+      <div class="row">
+        <label>상태 필터:
+          <select id="docRevisionStatusFilter">
+            <option value="">전체</option>
+            <option value="미검토">미검토</option>
+            <option value="검토중">검토중</option>
+            <option value="반영완료">반영완료</option>
+            <option value="해당없음">해당없음</option>
+          </select>
+        </label>
+        <input id="docRevisionsSearchInput" type="text" placeholder="법령명/사규명으로 빠르게 찾기" />
+      </div>
+      <div id="docRevisionsTable" class="table-wrap"></div>
+    </section>
+
+    <div id="helpModalOverlay" class="modal-overlay" hidden>
+      <div class="modal-box modal-wide">
+        <button type="button" id="helpModalCloseBtn" class="modal-close" title="닫기" aria-label="닫기">&times;</button>
+        <h2>사용 설명서</h2>
+        <p class="hint">
+          지금 보고 계신 화면은 <b>미리보기 전용 데모</b>입니다 (설정 탭 없이 브라우저 안에서만 동작). 실제 배포판은 국가법령정보센터 API와 연동되고 설정 화면도 추가로 있습니다.
+          이 시스템은 별도의 기술지원 없이 사내에서 자체적으로 운영되므로, 궁금한 점은 이 설명서를 먼저 확인해주세요.
+        </p>
+
+        <div class="help-toc">
+          <a href="#help-start">둘러보기</a>
+          <a href="#help-dashboard">대시보드</a>
+          <a href="#help-laws">법령 마스터</a>
+          <a href="#help-revisions">개정 이력</a>
+          <a href="#help-keyword">키워드 검색</a>
+          <a href="#help-documents">사규 / 사규 개정 이력</a>
+          <a href="#help-faq">자주 묻는 질문</a>
+        </div>
+
+        <div class="help-content">
+          <section id="help-start">
+            <h3>둘러보기</h3>
+            <p>이 데모는 실제 데이터 대신 예시 법령·고시로 채워져 있습니다. 우측 상단 <b>"데모: 개정 시뮬레이션"</b> 버튼을 누르면 임의의 법령이 개정된 것처럼 화면에 반영되어,
+            개정 감지부터 검토, 사규 반영까지의 흐름을 미리 체험해볼 수 있습니다. <b>"데모 데이터 초기화"</b>는 지금까지 이 브라우저에 쌓인 데모 데이터(등록한 법령, 사규, 상태 변경 등)를 모두 지우고 처음 상태로 되돌립니다.</p>
+            <p>실제로 회사에서 쓰려면 서버로 배포한 버전이 필요하며, 그 버전에는 국가법령정보센터 API 연동, 법령 본문 자동 캐시 등을 설정하는 <b>설정</b> 탭이 별도로 있습니다.</p>
+          </section>
+
+          <section id="help-dashboard">
+            <h3>대시보드</h3>
+            <ul>
+              <li><b>키워드 검색창</b>: 법령명뿐 아니라 본문(조문 내용)까지 검색합니다.</li>
+              <li><b>법령 개정 리스트</b>: 등록해둔 법령·고시가 재·개정된 것이 감지되면 여기 모두 표시됩니다 (이 시스템의 핵심 기능).</li>
+              <li><b>신규 제정 고시 후보</b>: 아직 등록하지 않은 고시·예규·훈령 중 지정된 소관부처+키워드에 맞는 것을 찾아 보여줍니다. "등록"을 누르면 관리 목록에 추가되고, "무시"를 누르면 다시 뜨지 않습니다.</li>
+              <li><b>사내 절차서·지침서 개정 필요 사항</b>: 근거 법령이 개정된 사규만 문서 기준으로 모아서 보여줍니다.</li>
+              <li>목록이 길어지면 표 안에서만 스크롤됩니다 — 계속 등록/무시를 눌러도 페이지 전체가 늘어지지 않습니다.</li>
+            </ul>
+          </section>
+
+          <section id="help-laws">
+            <h3>법령 마스터</h3>
+            <p>법령명으로 검색해서 추적할 법령·고시를 추가/삭제하는 화면입니다. 여기에 등록된 항목만 "법령 개정 리스트"에서 자동으로 추적됩니다.</p>
+          </section>
+
+          <section id="help-revisions">
+            <h3>개정 이력</h3>
+            <p>감지된 모든 개정 건의 이력입니다. 상태(미검토/검토중/반영완료/해당없음)로 필터링하거나, 여러 건을 한 번에 선택해서 상태를 일괄 변경할 수 있습니다.</p>
+          </section>
+
+          <section id="help-keyword">
+            <h3>키워드 검색</h3>
+            <p>등록해두었거나 본문 캐시로 미리 받아둔 법령·고시를 대상으로 키워드/문장을 검색합니다. 법령명뿐 아니라 조문 본문까지 검색되므로
+            이름에는 없어도 본문에 포함된 내용까지 찾아줍니다.</p>
+          </section>
+
+          <section id="help-documents">
+            <h3>사규 / 사규 개정 이력</h3>
+            <p><b>사규</b> 탭에서 절차서·지침서 등 회사 문서를 등록하고, 그 문서의 근거가 되는 법령·고시를 직접 선택(매핑)하거나 키워드(해시태그)를 등록해둘 수 있습니다.
+            키워드를 등록해두면 그 키워드가 이름/본문에 포함된 법령·고시가 개정될 때 자동으로 이 문서가 "개정 필요 사항"에 뜹니다.
+            <b>사규 개정 이력</b> 탭은 문서 기준으로 재구성한 개정 이력을 모아 보여줍니다.</p>
+          </section>
+
+          <section id="help-faq">
+            <h3>자주 묻는 질문</h3>
+            <ul>
+              <li><b>데모 데이터가 브라우저를 닫아도 유지되나요?</b> 네, 같은 브라우저라면 유지됩니다 (다른 브라우저/PC와는 공유되지 않습니다).</li>
+              <li><b>실제로 회사에서 쓰려면 어떻게 하나요?</b> 서버로 배포한 버전이 필요합니다. 배포판에는 국가법령정보센터 Open API 키 입력, 법령 본문 자동 캐시 등을 설정하는 "설정" 탭이 추가로 있습니다.</li>
+              <li><b>신규 제정 고시 후보에 예전 고시가 너무 많이 나와요.</b> 배포판의 설정 &gt; 신규 제정 고시 자동 탐지에서 "기준일"을 지정하면, 그 이후 공포된 것만 후보로 표시할 수 있습니다.</li>
+            </ul>
+          </section>
+        </div>
+      </div>
+    </div>
+
+    <div id="documentModalOverlay" class="modal-overlay" hidden>
+      <div class="modal-box">
+        <button type="button" id="docModalCloseBtn" class="modal-close" title="닫기" aria-label="닫기">&times;</button>
+        <h2 id="documentFormTitle">사규 추가</h2>
+        <form id="documentForm" class="grid-form">
+          <input type="hidden" id="docId" />
+          <label>구분
+            <select id="docType">
+              <option>절차서</option>
+              <option>지침서</option>
+              <option>작업표준</option>
+              <option>기타</option>
+            </select>
+          </label>
+          <label>문서번호 <input id="docNumber" type="text" /></label>
+          <label>제목 <input id="docTitle" type="text" required /></label>
+          <label>개정번호 <input id="docRevisionNo" type="text" /></label>
+          <label>개정일자 <input id="docRevisionDate" type="text" placeholder="YYYYMMDD" /></label>
+          <label>담당자 <input id="docOwner" type="text" /></label>
+          <label class="full">키워드(해시태그) <input id="docTags" type="text" placeholder="#밀폐공간 #공기호흡기" />
+            <span class="hint">근거 법령으로 직접 매핑하지 않아도, 이 키워드가 이름/본문에 들어간 법령·고시가 개정되면 자동으로 이 사규가 개정 필요 사항에 뜹니다. 공백으로 구분, "#"은 없어도 됩니다.</span>
+          </label>
+          <label class="full">근거 법령 (이 사규의 근거가 되는 법령·고시를 선택하면, 해당 법령이 개정될 때 이 사규가 대시보드의 "개정 필요 사항"에 표시됩니다)
+            <div class="row">
+              <select id="docLawCategoryFilter">
+                <option value="">구분: 전체</option>
+                <option value="0">법률</option>
+                <option value="1">대통령령</option>
+                <option value="2">부령(시행규칙)</option>
+                <option value="3">고시·예규·훈령 등</option>
+              </select>
+              <input id="docLawSearchInput" type="text" placeholder="법령명으로 검색" />
+            </div>
+            <div id="docLawCheckboxes" class="checkbox-list"></div>
+          </label>
+          <label class="full">비고 <textarea id="docNote"></textarea></label>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">저장</button>
+            <button type="button" id="docCancelBtn" class="btn">취소</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </main>
+
+  <div id="toast" class="toast" hidden></div>
+
+<script>
+// ---------- demo fixture data (client-side, mirrors backend/app/fixtures.py) ----------
+const DEMO_LAWS = [
+  { source_type: "law", external_id: "demo-law-001", name: "산업안전보건법", category: "법률", department: "고용노동부", promulgation_no: "제19591호", promulgation_date: "20230816", enforcement_date: "20240517", detail_link: "https://www.law.go.kr/법령/산업안전보건법" },
+  { source_type: "law", external_id: "demo-law-002", name: "산업안전보건법 시행령", category: "대통령령", department: "고용노동부", promulgation_no: "제34603호", promulgation_date: "20240618", enforcement_date: "20240618", detail_link: "https://www.law.go.kr/법령/산업안전보건법시행령" },
+  { source_type: "law", external_id: "demo-law-003", name: "산업안전보건법 시행규칙", category: "고용노동부령", department: "고용노동부", promulgation_no: "제417호", promulgation_date: "20240101", enforcement_date: "20240101", detail_link: "https://www.law.go.kr/법령/산업안전보건법시행규칙" },
+  { source_type: "law", external_id: "demo-law-004", name: "산업안전보건기준에 관한 규칙", category: "고용노동부령", department: "고용노동부", promulgation_no: "제402호", promulgation_date: "20231128", enforcement_date: "20231128", detail_link: "https://www.law.go.kr/법령/산업안전보건기준에관한규칙", content: "제241조(화재위험 작업 시의 준수사항) 사업주는 통풍이나 환기가 충분하지 않은 장소에서 화재위험작업(용접·용단 등 불꽃이나 화기를 사용하는 작업)을 하는 경우 화재감시자를 배치하여야 한다." },
+  { source_type: "law", external_id: "demo-law-005", name: "중대재해 처벌 등에 관한 법률", category: "법률", department: "법무부", promulgation_no: "제18627호", promulgation_date: "20220126", enforcement_date: "20220127", detail_link: "https://www.law.go.kr/법령/중대재해처벌등에관한법률" },
+  { source_type: "admrul", external_id: "demo-admrul-001", name: "유해위험방지계획서 제출·심사 및 확인에 관한 규칙", category: "고시", department: "고용노동부", promulgation_no: "고용노동부고시 제2023-31호", promulgation_date: "20230630", enforcement_date: "20230701", detail_link: "https://www.law.go.kr/행정규칙/유해위험방지계획서", content: "제6조(유해위험방지계획서의 내용) 탱크·배관 등의 설비를 해체하거나 정비·보수 작업을 하는 경우로서 화기작업을 수반하는 경우에는 유해위험방지계획서에 화재·폭발 예방대책을 포함하여야 한다." },
+  { source_type: "admrul", external_id: "demo-admrul-002", name: "관리감독자 안전보건교육 운영지침", category: "예규", department: "고용노동부", promulgation_no: "고용노동부예규 제220호", promulgation_date: "20220310", enforcement_date: "20220310", detail_link: "https://www.law.go.kr/행정규칙/관리감독자안전보건교육운영지침" },
+  { source_type: "admrul", external_id: "demo-admrul-003", name: "위험성평가 실시규정", category: "고시", department: "고용노동부", promulgation_no: "고용노동부고시 제2023-19호", promulgation_date: "20230501", enforcement_date: "20230501", detail_link: "https://www.law.go.kr/행정규칙/위험성평가실시규정" },
+  // 아래 두 건은 "신규 제정 고시 자동 탐지" 데모용 - 아직 등록되지 않은 채로
+  // 남겨둬서 대시보드에 후보로 잡히는 걸 보여준다.
+  { source_type: "admrul", external_id: "demo-admrul-004", name: "밀폐공간 작업 유해위험 방지에 관한 고시", category: "고시", department: "고용노동부", promulgation_no: "고용노동부고시 제2026-4호", promulgation_date: "20260115", enforcement_date: "20260115", detail_link: "https://www.law.go.kr/행정규칙/밀폐공간작업유해위험방지에관한고시", content: "제9조(밀폐공간 화기작업) 밀폐공간에서 화기작업을 실시하는 경우 사전에 가스농도를 측정하고, 화기작업 중에는 지속적으로 환기를 실시하여야 한다." },
+  { source_type: "admrul", external_id: "demo-admrul-005", name: "중대재해 예방을 위한 안전보건관리체계 구축 지침", category: "예규", department: "고용노동부", promulgation_no: "고용노동부예규 제245호", promulgation_date: "20260302", enforcement_date: "20260302", detail_link: "https://www.law.go.kr/행정규칙/중대재해예방을위한안전보건관리체계구축지침" },
+  // 소관부처가 달라 "고용노동부" 필터에 걸러져야 하는 디코이(이중 필터 확인용).
+  { source_type: "admrul", external_id: "demo-admrul-006", name: "화학물질 취급시설 안전관리에 관한 고시", category: "고시", department: "환경부", promulgation_no: "환경부고시 제2026-11호", promulgation_date: "20260210", enforcement_date: "20260210", detail_link: "https://www.law.go.kr/행정규칙/화학물질취급시설안전관리에관한고시" },
+];
+
+// "신규 제정 고시 자동 탐지" 기준(실제 버전 backend/app/config.py 기본값과 동일).
+// 실제 버전은 설정 탭에서 바꿀 수 있지만, 데모는 설정 탭이 없어 고정값으로 둔다.
+const NEW_ADMRUL_DEPARTMENT = "고용노동부";
+const NEW_ADMRUL_KEYWORDS = ["안전보건", "산업안전", "중대재해", "위험성평가", "유해위험", "보건관리", "안전관리"];
+
+const SOURCE_TYPE_LABEL = { law: "법령", admrul: "행정규칙" };
+
+// 플랜트건설업 기본 세트 (실제 버전과 동일한 목록). 데모 데이터에는 일부만 들어있어
+// 대부분 "검색 결과 없음"으로 나올 수 있습니다 — 정상입니다.
+const DEFAULT_LAW_SET = [
+  "산업안전보건법", "산업안전보건법 시행령", "산업안전보건법 시행규칙",
+  "산업안전보건기준에 관한 규칙", "중대재해 처벌 등에 관한 법률",
+  "중대재해 처벌 등에 관한 법률 시행령", "건설산업기본법", "건설기술 진흥법",
+  "건설기술 진흥법 시행령", "시설물의 안전 및 유지관리에 관한 특별법",
+  "위험물안전관리법", "고압가스 안전관리법", "화학물질관리법",
+  "화학물질의 등록 및 평가 등에 관한 법률", "전기안전관리법",
+  "소방시설 설치 및 관리에 관한 법률",
+];
+const DEFAULT_ADMRUL_SET = [
+  "위험성평가 실시규정", "유해ㆍ위험방지계획서 제출ㆍ심사 및 확인업무 처리에 관한 규정",
+  "건설공사 안전관리 업무수행 지침", "관리감독자 안전보건교육 운영지침",
+  "크레인 안전작업지침", "추락재해방지 표준안전작업지침",
+];
+
+// ---------- local storage state ----------
+const STORAGE_KEY = "safety_law_demo_v1";
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      if (!parsed.newAdmrulCandidates) parsed.newAdmrulCandidates = [];
+      return parsed;
+    }
+  } catch (_) { /* ignore */ }
+  return { laws: [], revisions: [], documents: [], mappings: [], nextId: 1, newAdmrulCandidates: [] };
+}
+
+function saveState() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch (_) { /* ignore */ }
+}
+
+let state = loadState();
+
+function nextId() {
+  const id = state.nextId;
+  state.nextId += 1;
+  return id;
+}
+
+// ---------- helpers ----------
+
+function toast(message, isError = false) {
+  const el = document.getElementById("toast");
+  el.textContent = message;
+  el.classList.toggle("error", isError);
+  el.hidden = false;
+  clearTimeout(toast._t);
+  toast._t = setTimeout(() => { el.hidden = true; }, 4000);
+}
+
+function fmtDate(d) {
+  if (!d) return "-";
+  return String(d).replace(/(\d{4})(\d{2})(\d{2})/, "$1-$2-$3");
+}
+
+function fmtDateTime(d) {
+  if (!d) return "-";
+  return new Date(d).toLocaleString("ko-KR");
+}
+
+const STATUS_BADGE_CLASS = { "미검토": "badge-pending", "검토중": "badge-progress", "반영완료": "badge-ok", "해당없음": "badge-warn" };
+
+function statusBadge(status) {
+  return `<span class="badge ${STATUS_BADGE_CLASS[status] || ""}">${status}</span>`;
+}
+
+function statusSelect(revisionId, status) {
+  return `
+    <select class="badge-select ${STATUS_BADGE_CLASS[status] || ""}" data-status-select="${revisionId}">
+      ${["미검토", "검토중", "반영완료", "해당없음"].map((s) => `<option value="${s}" ${s === status ? "selected" : ""}>${s}</option>`).join("")}
+    </select>
+  `;
+}
+
+// statusSelect()로 그려진 상태 변경 드롭다운 공통 배선. 개정 이력 탭과
+// 대시보드의 "법령 개정 리스트" 둘 다 같은 드롭다운을 쓰므로 여기서 한
+// 번만 구현한다 - 상태를 바꾸면 두 화면 다 최신 상태로 다시 그린다.
+function wireStatusSelects(el) {
+  el.querySelectorAll("[data-status-select]").forEach((sel) => {
+    sel.addEventListener("change", () => {
+      const rev = state.revisions.find((r) => r.id === Number(sel.dataset.statusSelect));
+      if (rev) {
+        rev.review_status = sel.value;
+        rev.reviewed_at = new Date().toISOString();
+        saveState();
+        toast("상태를 업데이트했습니다.");
+        renderDashboard();
+        renderRevisions();
+        renderDocRevisions();
+      }
+    });
+  });
+}
+
+function escapeHtml(s) {
+  if (s === null || s === undefined) return "";
+  return String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+}
+
+function mappedDocsForLaw(lawId) {
+  return state.mappings.filter((m) => m.tracked_law_id === lawId).map((m) => {
+    const doc = state.documents.find((d) => d.id === m.document_id);
+    return doc ? doc.title : "(삭제된 문서)";
+  });
+}
+
+function unreviewedCountForLaw(lawId) {
+  return state.revisions.filter((r) => r.tracked_law_id === lawId && r.review_status === "미검토").length;
+}
+
+// "#밀폐공간 #공기호흡기" 같은 입력을 저장용 CSV("밀폐공간,공기호흡기")로,
+// 그 반대로도 변환한다. 공백/콤마 어느 쪽으로 구분해도 되고 "#"은 있어도
+// 없어도 된다.
+function normalizeTagsInput(raw) {
+  return (raw || "")
+    .split(/[\s,]+/)
+    .map((t) => t.replace(/^#/, "").trim())
+    .filter(Boolean)
+    .join(",");
+}
+
+function formatTagsForInput(tagsCsv) {
+  return (tagsCsv || "")
+    .split(",")
+    .map((t) => t.trim())
+    .filter(Boolean)
+    .map((t) => `#${t}`)
+    .join(" ");
+}
+
+function renderTagChips(tagsCsv) {
+  const tags = (tagsCsv || "").split(",").map((t) => t.trim()).filter(Boolean);
+  if (!tags.length) return '<span class="hint">없음</span>';
+  return tags.map((t) => `<span class="tag-chip">#${escapeHtml(t)}</span>`).join(" ");
+}
+
+function docTags(doc) {
+  return (doc.tags || "").split(",").map((t) => t.trim()).filter(Boolean);
+}
+
+// 법령명 + 본문 캐시(있는 경우)를 합친 검색 대상 텍스트. 실제 버전의
+// ScrapedLawContent 캐시를 흉내낸 것으로, DEMO_LAWS에 붙여둔 content
+// 발췌문을 그대로 쓴다(데모는 별도 캐시 새로고침 없이 항상 최신 상태).
+function lawHaystack(law) {
+  const fixture = DEMO_LAWS.find((l) => l.source_type === law.source_type && l.external_id === law.external_id);
+  return (law.name || "") + "\n" + ((fixture && fixture.content) || "");
+}
+
+// 문서에 등록된 키워드(해시태그)가, 명시적으로 매핑하지 않은 법령이라도
+// 그 법령명/본문과 겹치면 자동으로 매칭시킨다. 매핑된 법령은 "mapping",
+// 태그로만 찾은 법령은 "tag"로 구분해서 돌려준다(law_id -> matched_by).
+function lawMatchesForDoc(doc) {
+  const lawMatchedBy = new Map();
+  for (const m of state.mappings.filter((mm) => mm.document_id === doc.id)) {
+    const law = state.laws.find((l) => l.id === m.tracked_law_id);
+    if (law) lawMatchedBy.set(law.id, "mapping");
+  }
+  const tags = docTags(doc);
+  if (tags.length) {
+    for (const law of state.laws) {
+      if (lawMatchedBy.has(law.id)) continue;
+      const haystack = lawHaystack(law);
+      if (tags.some((tag) => haystack.includes(tag))) lawMatchedBy.set(law.id, "tag");
+    }
+  }
+  return lawMatchedBy;
+}
+
+// ---------- tabs ----------
+
+let revisionsLawFilter = null; // { id, name } | null
+
+function activateTab(tab) {
+  document.querySelectorAll(".tab-btn").forEach((b) => b.classList.toggle("active", b.dataset.tab === tab));
+  document.querySelectorAll(".tab-panel").forEach((p) => p.classList.toggle("active", p.id === `tab-${tab}`));
+}
+
+function initTabs() {
+  document.querySelectorAll(".tab-btn").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      activateTab(btn.dataset.tab);
+      if (btn.dataset.tab === "revisions") revisionsLawFilter = null;
+      renderTab(btn.dataset.tab);
+    });
+  });
+}
+
+function viewRevisionsForLaw(lawId, lawName) {
+  revisionsLawFilter = { id: lawId, name: lawName };
+  activateTab("revisions");
+  renderRevisions();
+}
+
+function renderTab(tab) {
+  if (tab === "dashboard") renderDashboard();
+  if (tab === "laws") renderLawsTable();
+  if (tab === "revisions") renderRevisions();
+  if (tab === "documents") renderDocumentsTable();
+  if (tab === "doc-revisions") renderDocRevisions();
+}
+
+function renderAll() {
+  renderDashboard();
+  renderLawsTable();
+  renderRevisions();
+  renderDocumentsTable();
+  renderDocRevisions();
+}
+
+// ---------- dashboard ----------
+
+function renderDashboardRevisionList(containerId, revisions, emptyMessage) {
+  const el = document.getElementById(containerId);
+  el.innerHTML = revisions.length ? revisionsTableHtml(revisions, "quick") : `<div class="empty">${emptyMessage}</div>`;
+  wireStatusSelects(el);
+}
+
+// 법령이 아니라 "어떤 절차서/지침서를 검토해야 하는가"를 기준으로 보여준다.
+// 문서명/구분은 rowspan으로 그 문서의 개정 건수만큼 세로로 합쳐서, 법령/
+// 시행일/상태가 문서명/구분과 같은 표·같은 헤더 행에 나란히 놓이도록 한다.
+function renderDocumentImpactsList(docImpacts) {
+  return `
+    <table>
+      <thead><tr><th>문서명</th><th>구분</th><th>법령</th><th>시행일</th><th>상태</th></tr></thead>
+      <tbody>
+        ${docImpacts.map((d) => d.revisions.map((r, i) => {
+          const law = state.laws.find((l) => l.id === r.tracked_law_id);
+          return `
+          <tr>
+            ${i === 0 ? `
+              <td rowspan="${d.revisions.length}">${escapeHtml(d.document_title)}</td>
+              <td rowspan="${d.revisions.length}">${escapeHtml(d.doc_type)}</td>
+            ` : ""}
+            <td>${escapeHtml(law ? law.name : "-")}${r.matched_by === "tag" ? ' <span class="tag-badge" title="근거 법령으로 직접 매핑하지 않았지만, 문서 키워드가 이 법령의 이름/본문과 겹쳐 자동으로 매칭됨">#태그매칭</span>' : ""}</td>
+            <td>${fmtDate(r.enforcement_date)}</td>
+            <td>${statusSelect(r.id, r.review_status)}</td>
+          </tr>
+        `;
+        }).join("")).join("")}
+      </tbody>
+    </table>
+  `;
+}
+
+function renderDashboardDocumentImpacts(containerId, docImpacts, emptyMessage) {
+  const el = document.getElementById(containerId);
+  el.innerHTML = docImpacts.length ? renderDocumentImpactsList(docImpacts) : `<div class="empty">${emptyMessage}</div>`;
+  wireStatusSelects(el);
+}
+
+function computeDocumentImpacts() {
+  const docImpacts = [];
+  for (const doc of state.documents) {
+    const lawMatchedBy = lawMatchesForDoc(doc);
+    if (lawMatchedBy.size === 0) continue;
+    const pending = state.revisions
+      .filter((r) => lawMatchedBy.has(r.tracked_law_id) && (r.review_status === "미검토" || r.review_status === "검토중"))
+      .map((r) => ({ ...r, matched_by: lawMatchedBy.get(r.tracked_law_id) }))
+      .sort((a, b) => new Date(b.detected_at) - new Date(a.detected_at));
+    if (!pending.length) continue;
+    docImpacts.push({ document_id: doc.id, document_title: doc.title, doc_type: doc.doc_type, revisions: pending.slice(0, 5) });
+  }
+  docImpacts.sort((a, b) => new Date(b.revisions[0].detected_at) - new Date(a.revisions[0].detected_at));
+  return docImpacts.slice(0, 10);
+}
+
+// 소관부처(NEW_ADMRUL_DEPARTMENT) + 키워드(NEW_ADMRUL_KEYWORDS) 이중 필터로
+// 아직 등록 안 한 고시를 찾아 state.newAdmrulCandidates에 저장한다(실제
+// 버전의 scan_new_admrul()과 동일한 로직). 이미 찾아둔 것(무시/등록한 것
+// 포함)은 다시 만들지 않는다 - 실제 버전은 "새로고침" 때만 스캔하지만,
+// 데모는 설정/새로고침 버튼이 따로 없어 대시보드를 그릴 때마다 스캔한다
+// (existingKeys로 중복은 막혀 있어 두 번째 호출부터는 아무 일도 안 함).
+function scanNewAdmrulCandidates() {
+  const trackedKeys = new Set(
+    state.laws.filter((l) => l.source_type === "admrul").map((l) => `${l.source_type}:${l.external_id}`)
+  );
+  const existingKeys = new Set(state.newAdmrulCandidates.map((c) => `${c.source_type}:${c.external_id}`));
+  let added = 0;
+  for (const kw of NEW_ADMRUL_KEYWORDS) {
+    const results = DEMO_LAWS.filter((l) => l.source_type === "admrul" && l.name.includes(kw));
+    for (const r of results) {
+      const key = `${r.source_type}:${r.external_id}`;
+      if (trackedKeys.has(key) || existingKeys.has(key)) continue;
+      if (NEW_ADMRUL_DEPARTMENT && !(r.department || "").includes(NEW_ADMRUL_DEPARTMENT)) continue;
+      state.newAdmrulCandidates.push({
+        id: nextId(),
+        source_type: r.source_type,
+        external_id: r.external_id,
+        master_id: r.master_id || null,
+        name: r.name,
+        category: r.category,
+        department: r.department,
+        promulgation_no: r.promulgation_no,
+        promulgation_date: r.promulgation_date,
+        enforcement_date: r.enforcement_date,
+        detail_link: r.detail_link,
+        matched_keyword: kw,
+        status: "신규",
+        first_seen_at: new Date().toISOString(),
+      });
+      existingKeys.add(key);
+      added += 1;
+    }
+  }
+  if (added) saveState();
+}
+
+function renderNewAdmrulCandidates(containerId, candidates, emptyMessage) {
+  const el = document.getElementById(containerId);
+  if (!candidates.length) {
+    el.innerHTML = `<div class="empty">${emptyMessage}</div>`;
+    return;
+  }
+  el.innerHTML = `
+    <table>
+      <thead><tr><th>법령/고시</th><th>구분</th><th>소관부처</th><th>공포일자</th><th>매칭 키워드</th><th></th></tr></thead>
+      <tbody>
+        ${candidates.map((c) => `
+          <tr>
+            <td>${c.detail_link
+              ? `<a href="${escapeHtml(c.detail_link)}" target="_blank" rel="noopener">${escapeHtml(c.name)}</a>`
+              : escapeHtml(c.name)}</td>
+            <td>${escapeHtml(c.category || "-")}</td>
+            <td>${escapeHtml(c.department || "-")}</td>
+            <td>${fmtDate(c.promulgation_date)}</td>
+            <td><span class="hint">${escapeHtml(c.matched_keyword || "-")}</span></td>
+            <td>
+              <button class="btn btn-primary" data-track-candidate="${c.id}">등록</button>
+              <button class="link-btn" data-dismiss-candidate="${c.id}">무시</button>
+            </td>
+          </tr>
+        `).join("")}
+      </tbody>
+    </table>
+  `;
+  el.querySelectorAll("[data-track-candidate]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const c = candidates.find((x) => x.id === Number(btn.dataset.trackCandidate));
+      if (!c) return;
+      const law = {
+        id: nextId(),
+        source_type: c.source_type,
+        external_id: c.external_id,
+        master_id: c.master_id,
+        name: c.name,
+        category: c.category,
+        department: c.department,
+        current_promulgation_no: c.promulgation_no,
+        current_promulgation_date: c.promulgation_date,
+        current_enforcement_date: c.enforcement_date,
+        detail_link: c.detail_link,
+      };
+      state.laws.push(law);
+      state.revisions.push({
+        id: nextId(),
+        tracked_law_id: law.id,
+        promulgation_no: c.promulgation_no,
+        promulgation_date: c.promulgation_date,
+        enforcement_date: c.enforcement_date,
+        previous_promulgation_no: null,
+        previous_promulgation_date: null,
+        previous_enforcement_date: null,
+        detected_at: new Date().toISOString(),
+        review_status: "미검토",
+        reviewer: null,
+        reviewed_at: null,
+        note: null,
+      });
+      c.status = "등록됨";
+      saveState();
+      toast(`"${c.name}"을(를) 등록했습니다.`);
+      renderAll();
+    });
+  });
+  el.querySelectorAll("[data-dismiss-candidate]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const c = candidates.find((x) => x.id === Number(btn.dataset.dismissCandidate));
+      if (!c) return;
+      c.status = "무시됨";
+      saveState();
+      toast("무시했습니다. 다시 후보로 뜨지 않습니다.");
+      renderAll();
+    });
+  });
+}
+
+function renderDashboard() {
+  scanNewAdmrulCandidates();
+
+  const unreviewed = state.revisions.filter((r) => r.review_status === "미검토").length;
+  const inReview = state.revisions.filter((r) => r.review_status === "검토중").length;
+  const reflected = state.revisions.filter((r) => r.review_status === "반영완료").length;
+  document.getElementById("summaryCards").innerHTML = `
+    <div class="card"><div class="value">${state.laws.length}</div><div class="label">관리중인 법령</div></div>
+    <div class="card"><div class="value">${unreviewed}</div><div class="label">미검토 개정</div></div>
+    <div class="card"><div class="value">${inReview}</div><div class="label">검토중</div></div>
+    <div class="card"><div class="value">${reflected}</div><div class="label">반영완료</div></div>
+    <div class="card"><div class="value">${state.documents.length}</div><div class="label">등록된 사규</div></div>
+  `;
+
+  // 반영완료/해당없음으로 처리된 건 더 이상 "확인이 필요한 개정"이 아니므로
+  // 대시보드에서는 빠진다 - 처리 이력 전체는 "개정 이력" 탭에서 계속 볼 수 있다.
+  const recent = state.revisions
+    .filter((r) => r.review_status === "미검토" || r.review_status === "검토중")
+    .sort((a, b) => new Date(b.detected_at) - new Date(a.detected_at))
+    .slice(0, 10);
+
+  renderDashboardRevisionList("recentLawRevisions", recent, `아직 감지된 개정이 없습니다. 상단의 "데모: 개정 시뮬레이션" 버튼을 눌러보세요.`);
+  const newCandidates = state.newAdmrulCandidates.filter((c) => c.status === "신규");
+  renderNewAdmrulCandidates("newAdmrulCandidates", newCandidates, `현재 발견된 신규 제정 고시 후보가 없습니다.`);
+  renderDashboardDocumentImpacts("recentDocImpacts", computeDocumentImpacts(), `현재 개정 검토가 필요한 문서가 없습니다.`);
+
+  updateAlarmBell(unreviewed, recent);
+}
+
+// ---------- alarm bell ----------
+
+const ALARM_ACK_KEY = "safety_law_demo_alarm_ack_id";
+
+function getAlarmAckId() {
+  try { return Number(localStorage.getItem(ALARM_ACK_KEY) || 0); } catch (_) { return 0; }
+}
+
+function setAlarmAckId(id) {
+  try { localStorage.setItem(ALARM_ACK_KEY, String(id)); } catch (_) { /* ignore */ }
+}
+
+function updateAlarmBell(unreviewedCount, recentRevisions) {
+  const bell = document.getElementById("alarmBell");
+  const latestId = recentRevisions.length ? Math.max(...recentRevisions.map((r) => r.id)) : 0;
+  const active = unreviewedCount > 0 && latestId > getAlarmAckId();
+  bell.hidden = unreviewedCount === 0;
+  bell.classList.toggle("active", active);
+  document.getElementById("alarmBellCount").textContent = unreviewedCount || "";
+  bell.dataset.latestId = String(latestId);
+}
+
+// ---------- help modal ----------
+
+const HELP_SEEN_KEY = "safety_law_help_seen_v1_demo";
+
+function openHelpModal() {
+  document.getElementById("helpModalOverlay").hidden = false;
+}
+
+function closeHelpModal() {
+  document.getElementById("helpModalOverlay").hidden = true;
+}
+
+function initHelpModal() {
+  document.getElementById("helpBtn").addEventListener("click", openHelpModal);
+  document.getElementById("helpModalCloseBtn").addEventListener("click", closeHelpModal);
+  document.getElementById("helpModalOverlay").addEventListener("click", (ev) => {
+    if (ev.target.id === "helpModalOverlay") closeHelpModal();
+  });
+  document.addEventListener("keydown", (ev) => {
+    if (ev.key === "Escape" && !document.getElementById("helpModalOverlay").hidden) closeHelpModal();
+  });
+
+  let alreadySeen = true;
+  try { alreadySeen = localStorage.getItem(HELP_SEEN_KEY) === "1"; } catch (_) { /* ignore */ }
+  if (!alreadySeen) {
+    openHelpModal();
+    try { localStorage.setItem(HELP_SEEN_KEY, "1"); } catch (_) { /* ignore */ }
+  }
+}
+
+function initAlarmBell() {
+  document.getElementById("alarmBell").addEventListener("click", (e) => {
+    setAlarmAckId(Number(e.currentTarget.dataset.latestId || 0));
+    e.currentTarget.classList.remove("active");
+    document.getElementById("revisionStatusFilter").value = "미검토";
+    revisionsLawFilter = null;
+    activateTab("revisions");
+    renderRevisions();
+  });
+}
+
+// ---------- laws ----------
+
+function lawReasonDocUrl(l) {
+  // 공포일자 클릭 -> "제정·개정이유" 탭
+  if (l.source_type !== "law" || !l.external_id || !l.current_enforcement_date) return null;
+  const params = new URLSearchParams({
+    lsiSeq: l.external_id,
+    lsId: "",
+    efYd: l.current_enforcement_date,
+    chrClsCd: "010202",
+    urlMode: "lsEfInfoR",
+    viewCls: "lsRvsDocInfoR",
+    ancYnChk: "0",
+  });
+  return `https://www.law.go.kr/lsInfoP.do?${params.toString()}#`;
+}
+
+function lawCategoryRank(category) {
+  // 법 -> 시행령 -> 시행규칙 -> 고시/예규/훈령 순으로 묶어서 정렬하기 위한 순위
+  if (category === "법률") return 0;
+  if (category === "대통령령") return 1;
+  if (category && category.endsWith("부령")) return 2; // ...부령 = 시행규칙류
+  return 3; // 고시/예규/훈령 등 행정규칙
+}
+
+function sortLaws(laws) {
+  return [...laws].sort((a, b) => {
+    const rankDiff = lawCategoryRank(a.category) - lawCategoryRank(b.category);
+    if (rankDiff !== 0) return rankDiff;
+    return (a.name || "").localeCompare(b.name || "", "ko");
+  });
+}
+
+const LAW_CATEGORY_GROUP_LABEL = ["법률", "대통령령(시행령)", "부령(시행규칙)", "고시·예규·훈령 등(행정규칙)"];
+
+let lawsFilterText = "";
+
+function renderLawsTable() {
+  const el = document.getElementById("lawsTable");
+  if (!state.laws.length) {
+    el.innerHTML = `<div class="empty">관리중인 법령이 없습니다. 위에서 검색해 등록하세요.</div>`;
+    return;
+  }
+
+  const q = lawsFilterText.trim();
+  const sorted = sortLaws(state.laws);
+  const filtered = q
+    ? sorted.filter((l) => (l.name || "").includes(q) || (l.department || "").includes(q))
+    : sorted;
+  if (!filtered.length) {
+    el.innerHTML = `<div class="empty">"${escapeHtml(q)}"와(과) 일치하는 법령이 없습니다.</div>`;
+    return;
+  }
+
+  const rows = [];
+  let lastRank = null;
+  for (const l of filtered) {
+    const rank = lawCategoryRank(l.category);
+    if (rank !== lastRank) {
+      const count = filtered.filter((x) => lawCategoryRank(x.category) === rank).length;
+      rows.push(`<tr class="law-group-row"><td colspan="7">${LAW_CATEGORY_GROUP_LABEL[rank]} <span class="hint">${count}건</span></td></tr>`);
+      lastRank = rank;
+    }
+    const reasonUrl = lawReasonDocUrl(l);
+    const promCell = reasonUrl
+      ? `<a href="${escapeHtml(reasonUrl)}" target="_blank" rel="noopener" title="법령정보센터: 제정·개정이유 보기">${fmtDate(l.current_promulgation_date)}</a>`
+      : fmtDate(l.current_promulgation_date);
+    rows.push(`
+          <tr class="${unreviewedCountForLaw(l.id) ? "law-row-alert" : ""}">
+            <td>${l.detail_link
+              ? `<a href="${escapeHtml(l.detail_link)}" target="_blank" rel="noopener">${escapeHtml(l.name)}</a>`
+              : escapeHtml(l.name)}</td>
+            <td>${escapeHtml(l.category || "-")}</td>
+            <td>${unreviewedCountForLaw(l.id)
+              ? `<button class="link-btn" data-view-revisions="${l.id}" data-law-name="${escapeHtml(l.name)}" title="이 법령의 개정 이력 보기">${statusBadge("미검토")} ${unreviewedCountForLaw(l.id)}</button>`
+              : "-"}</td>
+            <td>${promCell}</td>
+            <td>${fmtDate(l.current_enforcement_date)}</td>
+            <td>${mappedDocsForLaw(l.id).length}</td>
+            <td><button class="link-btn" data-remove-law="${l.id}">취소</button></td>
+          </tr>
+        `);
+  }
+
+  el.innerHTML = `
+    <table>
+      <thead><tr>
+        <th>법령/고시</th><th>구분</th><th>미검토 개정</th><th>공포일자</th><th>시행일자</th><th>매핑 문서</th><th></th>
+      </tr></thead>
+      <tbody>${rows.join("")}</tbody>
+    </table>
+  `;
+  el.querySelectorAll("[data-view-revisions]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      viewRevisionsForLaw(Number(btn.dataset.viewRevisions), btn.dataset.lawName);
+    });
+  });
+  el.querySelectorAll("[data-remove-law]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const id = Number(btn.dataset.removeLaw);
+      if (!confirm("취소할까요? (개정 이력과 매핑도 함께 삭제됩니다)")) return;
+      state.laws = state.laws.filter((l) => l.id !== id);
+      state.revisions = state.revisions.filter((r) => r.tracked_law_id !== id);
+      state.mappings = state.mappings.filter((m) => m.tracked_law_id !== id);
+      saveState();
+      toast("취소했습니다.");
+      renderAll();
+    });
+  });
+}
+
+function findDemoLaws(sourceType, query) {
+  const q = (query || "").trim();
+  return DEMO_LAWS.filter((l) => {
+    if (sourceType !== "all" && l.source_type !== sourceType) return false;
+    if (!q) return true;
+    return l.name.includes(q);
+  });
+}
+
+function addTrackedLaw(r) {
+  const already = state.laws.find((l) => l.source_type === r.source_type && l.external_id === r.external_id);
+  if (already) return { ok: false, reason: "이미 추적 중" };
+  const law = {
+    id: nextId(),
+    source_type: r.source_type,
+    external_id: r.external_id,
+    name: r.name,
+    category: r.category,
+    department: r.department,
+    current_promulgation_no: r.promulgation_no,
+    current_promulgation_date: r.promulgation_date,
+    current_enforcement_date: r.enforcement_date,
+    detail_link: r.detail_link || null,
+  };
+  state.laws.push(law);
+  // 실제 개정이 아니어도, 법령을 처음 등록할 때의 현재 정보 자체를 사용자가
+  // 한 번은 확인해야 하는 대상으로 취급 - 신규 개정과 동일하게 "미검토"로
+  // 남겨 대시보드/알람에 노출하고, 확인 버튼을 누르기 전까지 사라지지 않게 함.
+  if (r.promulgation_date || r.enforcement_date) {
+    state.revisions.push({
+      id: nextId(),
+      tracked_law_id: law.id,
+      promulgation_no: r.promulgation_no,
+      promulgation_date: r.promulgation_date,
+      enforcement_date: r.enforcement_date,
+      previous_promulgation_no: null,
+      previous_promulgation_date: null,
+      previous_enforcement_date: null,
+      detected_at: new Date().toISOString(),
+      review_status: "미검토",
+    });
+  }
+  saveState();
+  return { ok: true };
+}
+
+function isAlreadyTracked(r) {
+  return state.laws.some((l) =>
+    (r.master_id && l.master_id && l.master_id === r.master_id) ||
+    (l.source_type === r.source_type && l.external_id === r.external_id) ||
+    (l.source_type === r.source_type && l.name === r.name)
+  );
+}
+
+function searchLaws() {
+  const sourceType = document.getElementById("searchSourceType").value;
+  const query = document.getElementById("searchQuery").value.trim();
+  const el = document.getElementById("searchResults");
+  if (!query) { el.innerHTML = ""; return; }
+  const pool = findDemoLaws(sourceType, query);
+  if (!pool.length) {
+    el.innerHTML = `<div class="empty">검색 결과가 없습니다.</div>`;
+    return;
+  }
+  el.innerHTML = `
+    <table>
+      <thead><tr><th>법령/고시</th><th>출처</th><th>구분</th><th>소관부처</th><th>공포일자</th><th>시행일자</th><th></th></tr></thead>
+      <tbody>
+        ${pool.map((r, i) => {
+          const tracked = isAlreadyTracked(r);
+          return `
+          <tr>
+            <td>${escapeHtml(r.name)}</td>
+            <td>${SOURCE_TYPE_LABEL[r.source_type] || escapeHtml(r.source_type)}</td>
+            <td>${escapeHtml(r.category)}</td>
+            <td>${escapeHtml(r.department)}</td>
+            <td>${fmtDate(r.promulgation_date)}</td>
+            <td>${fmtDate(r.enforcement_date)}</td>
+            <td>${tracked
+              ? `<button class="btn" disabled title="이미 관리중인 법령입니다">등록됨</button>`
+              : `<button class="btn" data-add-result="${i}">등록</button>`}</td>
+          </tr>
+        `;
+        }).join("")}
+      </tbody>
+    </table>
+  `;
+  el.querySelectorAll("[data-add-result]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const r = pool[Number(btn.dataset.addResult)];
+      const result = addTrackedLaw(r);
+      if (!result.ok) { toast("이미 추적 중입니다.", true); return; }
+      toast(`"${r.name}" 추적을 시작했습니다.`);
+      // 여러 건을 연달아 등록할 때 어디까지 눌렀는지 헷갈리지 않도록,
+      // 재검색 없이도 이 버튼 자체를 바로 "등록 완료"로 바꿔준다.
+      btn.disabled = true;
+      btn.textContent = "등록 완료";
+      renderAll();
+    });
+  });
+}
+
+// ---------- keyword search (본문 캐시 대상 키워드/문장 검색) ----------
+
+const MATCHED_IN_LABEL = { name: "법령명", content: "본문" };
+
+function snippetFor(content, idx, needleLen, radius = 40) {
+  const start = Math.max(0, idx - radius);
+  const end = Math.min(content.length, idx + needleLen + radius);
+  const prefix = start > 0 ? "…" : "";
+  const suffix = end < content.length ? "…" : "";
+  return `${prefix}${content.slice(start, end).trim()}${suffix}`;
+}
+
+// 검색어가 매칭된 위치 앞에서 가장 최근에 나온 "제N조"를 찾아 법제처의
+// 조문 링크(LsiJoLinkP.do)를 만든다. 실제 조문 텍스트가 관행대로
+// "제N조(...)"로 시작한다는 점에 기대어 역방향으로 찾는 근사치다. 못
+// 찾으면 null(호출부가 법령 상세 링크로 대체).
+function buildArticleLink(name, content, matchIdx) {
+  const before = content.slice(0, matchIdx + 1);
+  const found = [...before.matchAll(/제(\d+)조/g)];
+  if (!found.length) return null;
+  const articleNo = Number(found[found.length - 1][1]);
+  const joNo = String(articleNo).padStart(4, "0") + "00000";
+  const params = new URLSearchParams({ docType: "JO", lsNm: name, joNo, languageType: "KO", paras: "1" });
+  return `https://www.law.go.kr/LSW/LsiJoLinkP.do?${params.toString()}`;
+}
+
+// 실제 버전의 본문 캐시(ScrapedLawContent) 검색을 흉내낸 것 - DEMO_LAWS
+// 전체(등록 여부 무관)를 대상으로 이름/본문(content)에서 찾는다. 본문에서
+// 찾아지면 이름 매칭보다 더 구체적인 정보이므로 본문 쪽을 우선한다.
+function searchKeywordCache(sourceType, query) {
+  const q = (query || "").trim();
+  if (!q) return [];
+  const pool = DEMO_LAWS.filter((l) => sourceType === "all" || l.source_type === sourceType);
+  const results = [];
+  for (const law of pool) {
+    const content = law.content || "";
+    const idx = content.indexOf(q);
+    if (idx !== -1) {
+      results.push({
+        ...law,
+        matched_in: "content",
+        snippet: snippetFor(content, idx, q.length),
+        article_link: buildArticleLink(law.name, content, idx),
+      });
+    } else if (law.name.includes(q)) {
+      results.push({ ...law, matched_in: "name", snippet: "", article_link: null });
+    }
+  }
+  return results;
+}
+
+function highlightSnippet(snippet, query) {
+  const escaped = escapeHtml(snippet);
+  const q = escapeHtml(query);
+  if (!q) return escaped;
+  return escaped.split(q).join(`<mark>${q}</mark>`);
+}
+
+// 크롬/엣지 등이 지원하는 "텍스트 조각 링크"(Scroll To Text Fragment,
+// #:~:text=...) - 대상 페이지에 아무 코드가 없어도 브라우저가 그 문구를
+// 찾아 스크롤하고 노란색으로 하이라이트해준다(Ctrl+F로 찾은 것과 비슷한
+// 효과). 법제처 페이지 코드를 건드릴 수 없으니 이 방법으로 검색어를
+// 눈에 띄게 한다. 파이어폭스/사파리는 아직 지원하지 않아 그런 브라우저는
+// 그냥 평범한 이동 링크로만 동작한다.
+function withTextHighlight(url, query) {
+  if (!url || !query) return url;
+  return `${url}#:~:text=${encodeURIComponent(query)}`;
+}
+
+function searchKeywords() {
+  const sourceType = document.getElementById("keywordSearchSourceType").value;
+  const query = document.getElementById("keywordSearchInput").value.trim();
+  const el = document.getElementById("keywordSearchResults");
+  if (!query) { el.innerHTML = ""; return; }
+  const results = searchKeywordCache(sourceType, query);
+  if (!results.length) {
+    el.innerHTML = `<div class="empty">검색 결과가 없습니다. (데모 데이터 중 조문 발췌가 있는 항목만 본문검색 대상입니다)</div>`;
+    return;
+  }
+  el.innerHTML = `
+    <table>
+      <thead><tr><th>법령/고시</th><th>출처</th><th>구분</th><th>소관부처</th><th>매칭 위치</th><th>미리보기</th><th>시행일자</th></tr></thead>
+      <tbody>
+        ${results.map((r) => `
+          <tr>
+            <td>${r.detail_link
+              ? `<a href="${escapeHtml(withTextHighlight(r.detail_link, query))}" target="_blank" rel="noopener">${escapeHtml(r.name)}</a>`
+              : escapeHtml(r.name)}</td>
+            <td>${SOURCE_TYPE_LABEL[r.source_type] || escapeHtml(r.source_type)}</td>
+            <td>${escapeHtml(r.category || "-")}</td>
+            <td>${escapeHtml(r.department || "-")}</td>
+            <td>${MATCHED_IN_LABEL[r.matched_in] || "-"}</td>
+            <td class="search-snippet">${(() => {
+              if (!r.snippet) return '<span class="hint">-</span>';
+              const href = withTextHighlight(r.article_link || r.detail_link, query);
+              const title = r.article_link ? "해당 조문으로 이동" : "법령 상세 페이지로 이동";
+              return href
+                ? `<a href="${escapeHtml(href)}" target="_blank" rel="noopener" title="${title}">${highlightSnippet(r.snippet, query)}</a>`
+                : highlightSnippet(r.snippet, query);
+            })()}</td>
+            <td>${fmtDate(r.enforcement_date)}</td>
+          </tr>
+        `).join("")}
+      </tbody>
+    </table>
+  `;
+}
+
+function initKeywordSearch() {
+  document.getElementById("keywordSearchBtn").addEventListener("click", searchKeywords);
+  document.getElementById("keywordSearchInput").addEventListener("keydown", (e) => {
+    if (e.key === "Enter") { e.preventDefault(); searchKeywords(); }
+  });
+  document.getElementById("keywordSearchSourceType").addEventListener("change", () => {
+    if (document.getElementById("keywordSearchInput").value.trim()) searchKeywords();
+  });
+  document.getElementById("dashboardKeywordSearchForm").addEventListener("submit", (ev) => {
+    ev.preventDefault();
+    const query = document.getElementById("dashboardKeywordSearchInput").value.trim();
+    if (!query) return;
+    document.getElementById("keywordSearchInput").value = query;
+    activateTab("keyword-search");
+    searchKeywords();
+  });
+}
+
+function seedDefaultLaws() {
+  const el = document.getElementById("seedResults");
+  const rows = [];
+  const runSet = (sourceType, names) => {
+    for (const name of names) {
+      const matches = findDemoLaws(sourceType, name);
+      if (!matches.length) { rows.push({ name, status: "검색 결과 없음 (데모 데이터 아님)" }); continue; }
+      const result = addTrackedLaw(matches[0]);
+      rows.push({ name: matches[0].name, status: result.ok ? "추가됨" : "이미 추적 중" });
+    }
+  };
+  runSet("law", DEFAULT_LAW_SET);
+  runSet("admrul", DEFAULT_ADMRUL_SET);
+
+  el.innerHTML = `
+    <table>
+      <thead><tr><th>법령/고시</th><th>결과</th></tr></thead>
+      <tbody>
+        ${rows.map((r) => `<tr><td>${escapeHtml(r.name)}</td><td>${escapeHtml(r.status)}</td></tr>`).join("")}
+      </tbody>
+    </table>
+  `;
+  const addedCount = rows.filter((r) => r.status === "추가됨").length;
+  toast(`기본 법령 세트 처리 완료: ${addedCount}건 추가 (총 ${rows.length}건 시도)`);
+  renderAll();
+}
+
+// ---------- revisions ----------
+
+// mode: "full"(개정 이력 탭) | "quick"(대시보드 "법령 개정 리스트")
+// 상태 변경 드롭다운(statusSelect)은 두 모드 다 동일하게 사용한다 -
+// 대시보드에서 바로 상태를 바꿔도 개정 이력 탭과 똑같이 동작해야 하고,
+// 반영완료/해당없음으로 바뀐 건 대시보드 목록에서 빠져야 하기 때문.
+// 개정 이력 탭(full)에서 체크된 개정 이력 id들 - 여러 건을 한 번에 상태
+// 변경하기 위한 선택 상태. 목록을 새로 불러올 때마다 초기화됨.
+let selectedRevisionIds = new Set();
+
+function revisionsTableHtml(revisions, mode = "full") {
+  const showFullActions = mode === "full";
+  // "사규" 열은 개정 이력 탭(full)에서만 보여준다 - 대시보드(quick)에는
+  // 문서 기준으로 재구성한 별도 섹션("사내 절차서·지침서 개정 필요 사항")이
+  // 있어 여기서 또 보여주면 중복이라 뺐다.
+  const showMappedDocs = showFullActions;
+  const showCheckbox = showFullActions;
+  return `
+    <table>
+      <thead><tr>
+        ${showCheckbox ? `<th><input type="checkbox" id="revisionsSelectAllCheckbox" title="전체 선택"></th>` : ""}
+        <th>법령/고시</th><th>구분</th><th>공포일자</th><th>시행일자</th><th>감지 시각</th>${showMappedDocs ? "<th>사규</th>" : ""}<th>상태</th>
+      </tr></thead>
+      <tbody>
+        ${revisions.map((r) => {
+          const law = state.laws.find((l) => l.id === r.tracked_law_id);
+          const mapped = mappedDocsForLaw(r.tracked_law_id);
+          const isInitial = !r.previous_promulgation_date && !r.previous_enforcement_date;
+          return `
+          <tr>
+            ${showCheckbox ? `<td><input type="checkbox" class="revision-row-checkbox" data-revision-id="${r.id}" ${selectedRevisionIds.has(r.id) ? "checked" : ""}></td>` : ""}
+            <td>${escapeHtml(law ? law.name : "-")}${isInitial ? ` <span class="hint">(신규 등록)</span>` : ""}</td>
+            <td>${escapeHtml(law ? law.category || "-" : "-")}</td>
+            <td>${fmtDate(r.promulgation_date)}${r.previous_promulgation_date && r.previous_promulgation_date !== r.promulgation_date ? `<br><span class="hint">이전: ${fmtDate(r.previous_promulgation_date)}</span>` : ""}</td>
+            <td>${fmtDate(r.enforcement_date)}</td>
+            <td>${fmtDateTime(r.detected_at)}</td>
+            ${showMappedDocs ? `<td>${mapped.length ? mapped.map(escapeHtml).join(", ") : '<span class="hint">해당 없음</span>'}</td>` : ""}
+            <td>${statusSelect(r.id, r.review_status)}</td>
+          </tr>`;
+        }).join("")}
+      </tbody>
+    </table>
+  `;
+}
+
+function renderRevisionLawFilterChip() {
+  const chip = document.getElementById("revisionLawFilterChip");
+  if (!revisionsLawFilter) {
+    chip.hidden = true;
+    chip.innerHTML = "";
+    return;
+  }
+  chip.hidden = false;
+  chip.innerHTML = `법령 필터: <strong>${escapeHtml(revisionsLawFilter.name)}</strong> · <button class="link-btn" id="clearLawFilterBtn">전체 보기</button>`;
+  document.getElementById("clearLawFilterBtn").addEventListener("click", () => {
+    revisionsLawFilter = null;
+    renderRevisions();
+  });
+}
+
+function updateRevisionsBulkToolbar() {
+  document.getElementById("revisionsSelectedCount").textContent = `${selectedRevisionIds.size}건 선택됨`;
+  document.getElementById("revisionsBulkApplyBtn").disabled = selectedRevisionIds.size === 0;
+  document.getElementById("revisionsBulkDeleteBtn").disabled = selectedRevisionIds.size === 0;
+  const selectAll = document.getElementById("revisionsSelectAllCheckbox");
+  if (selectAll) {
+    const rowCheckboxes = document.querySelectorAll(".revision-row-checkbox");
+    const checkedCount = document.querySelectorAll(".revision-row-checkbox:checked").length;
+    selectAll.checked = rowCheckboxes.length > 0 && checkedCount === rowCheckboxes.length;
+    selectAll.indeterminate = checkedCount > 0 && checkedCount < rowCheckboxes.length;
+  }
+}
+
+function renderRevisions() {
+  const status = document.getElementById("revisionStatusFilter").value;
+  const searchText = document.getElementById("revisionsSearchInput").value.trim();
+  const el = document.getElementById("revisionsTable");
+  selectedRevisionIds = new Set();
+  renderRevisionLawFilterChip();
+  const list = [...state.revisions]
+    .filter((r) => !status || r.review_status === status)
+    .filter((r) => !revisionsLawFilter || r.tracked_law_id === revisionsLawFilter.id)
+    .filter((r) => {
+      if (!searchText) return true;
+      const law = state.laws.find((l) => l.id === r.tracked_law_id);
+      return law && law.name.includes(searchText);
+    })
+    .sort((a, b) => new Date(b.detected_at) - new Date(a.detected_at));
+  el.innerHTML = list.length
+    ? revisionsTableHtml(list, "full")
+    : `<div class="empty">${searchText ? `"${escapeHtml(searchText)}"와(과) 일치하는 개정 이력이 없습니다.` : "개정 이력이 없습니다."}</div>`;
+  wireStatusSelects(el);
+  el.querySelectorAll(".revision-row-checkbox").forEach((cb) => {
+    cb.addEventListener("change", () => {
+      const id = Number(cb.dataset.revisionId);
+      if (cb.checked) selectedRevisionIds.add(id);
+      else selectedRevisionIds.delete(id);
+      updateRevisionsBulkToolbar();
+    });
+  });
+  const selectAll = document.getElementById("revisionsSelectAllCheckbox");
+  if (selectAll) {
+    selectAll.addEventListener("change", () => {
+      el.querySelectorAll(".revision-row-checkbox").forEach((cb) => {
+        cb.checked = selectAll.checked;
+        const id = Number(cb.dataset.revisionId);
+        if (selectAll.checked) selectedRevisionIds.add(id);
+        else selectedRevisionIds.delete(id);
+      });
+      updateRevisionsBulkToolbar();
+    });
+  }
+  updateRevisionsBulkToolbar();
+}
+
+// ---------- 사규 개정 이력 ----------
+// 대시보드의 "사내 절차서·지침서 개정 필요 사항"과 같은 형식(문서가 맨
+// 앞, 그 문서와 관련된 법령 개정을 안에 나열)을 그대로 쓰되, 대시보드는
+// 미검토/검토중 + 최대 10건만 보여주는 반면 여기는 상태 필터/검색을 걸어
+// 처리 완료된 것까지 포함한 전체 이력을 다 보여준다.
+
+function renderDocRevisions() {
+  const status = document.getElementById("docRevisionStatusFilter").value;
+  const searchText = document.getElementById("docRevisionsSearchInput").value.trim();
+  const el = document.getElementById("docRevisionsTable");
+
+  const docImpacts = [];
+  for (const doc of state.documents) {
+    const lawMatchedBy = lawMatchesForDoc(doc);
+    if (lawMatchedBy.size === 0) continue;
+    const revisions = state.revisions
+      .filter((r) => lawMatchedBy.has(r.tracked_law_id) && (!status || r.review_status === status))
+      .map((r) => ({ ...r, matched_by: lawMatchedBy.get(r.tracked_law_id) }))
+      .sort((a, b) => new Date(b.detected_at) - new Date(a.detected_at));
+    if (!revisions.length) continue;
+    docImpacts.push({ document_id: doc.id, document_title: doc.title, doc_type: doc.doc_type, revisions });
+  }
+  docImpacts.sort((a, b) => new Date(b.revisions[0].detected_at) - new Date(a.revisions[0].detected_at));
+
+  const filtered = searchText
+    ? docImpacts.filter((d) => {
+        if (d.document_title.includes(searchText)) return true;
+        return d.revisions.some((r) => {
+          const law = state.laws.find((l) => l.id === r.tracked_law_id);
+          return law && law.name.includes(searchText);
+        });
+      })
+    : docImpacts;
+
+  el.innerHTML = filtered.length
+    ? renderDocumentImpactsList(filtered)
+    : `<div class="empty">${searchText ? `"${escapeHtml(searchText)}"와(과) 일치하는 사규 개정 이력이 없습니다.` : "사규와 매핑된 법령의 개정 이력이 없습니다. 사규 추가/수정 화면에서 근거 법령을 연결해보세요."}</div>`;
+  wireStatusSelects(el);
+}
+
+function applyRevisionsBulkStatus() {
+  if (selectedRevisionIds.size === 0) return;
+  const status = document.getElementById("revisionsBulkStatus").value;
+  for (const id of selectedRevisionIds) {
+    const rev = state.revisions.find((r) => r.id === id);
+    if (rev) {
+      rev.review_status = status;
+      rev.reviewed_at = new Date().toISOString();
+    }
+  }
+  saveState();
+  toast(`${selectedRevisionIds.size}건을 "${status}"(으)로 변경했습니다.`);
+  renderDashboard();
+  renderRevisions();
+}
+
+function deleteRevisionsBulk() {
+  if (selectedRevisionIds.size === 0) return;
+  const count = selectedRevisionIds.size;
+  if (!confirm(`선택한 개정 이력 ${count}건을 삭제할까요? 되돌릴 수 없습니다.`)) return;
+  state.revisions = state.revisions.filter((r) => !selectedRevisionIds.has(r.id));
+  saveState();
+  toast(`${count}건을 삭제했습니다.`);
+  renderDashboard();
+  renderRevisions();
+}
+
+function simulateRevision() {
+  if (!state.laws.length) { toast("먼저 법령을 추적 등록하세요.", true); return; }
+  const law = state.laws[Math.floor(Math.random() * state.laws.length)];
+  const today = new Date();
+  const yyyy = today.getFullYear();
+  const mm = String(today.getMonth() + 1).padStart(2, "0");
+  const dd = String(today.getDate()).padStart(2, "0");
+  const newDate = `${yyyy}${mm}${dd}`;
+  const newNo = `제${Math.floor(Math.random() * 90000 + 10000)}호(데모)`;
+
+  state.revisions.push({
+    id: nextId(),
+    tracked_law_id: law.id,
+    promulgation_no: newNo,
+    promulgation_date: newDate,
+    enforcement_date: newDate,
+    previous_promulgation_no: law.current_promulgation_no,
+    previous_promulgation_date: law.current_promulgation_date,
+    previous_enforcement_date: law.current_enforcement_date,
+    detected_at: new Date().toISOString(),
+    review_status: "미검토",
+    reviewer: null,
+    reviewed_at: null,
+    note: null,
+  });
+
+  law.current_promulgation_no = newNo;
+  law.current_promulgation_date = newDate;
+  law.current_enforcement_date = newDate;
+
+  saveState();
+  toast(`"${law.name}"에 데모 개정이 발생했습니다.`);
+  renderAll();
+}
+
+// ---------- documents ----------
+
+// 근거 법령 체크박스 목록은 구분 필터/검색어에 따라 계속 다시 그려지므로,
+// 어떤 법령이 선택됐는지는 화면의 :checked 상태가 아니라 이 Set으로 따로
+// 추적한다(필터링으로 화면에서 안 보이는 항목도 선택은 유지되어야 함).
+let selectedDocLawIds = new Set();
+
+function renderDocLawCheckboxes() {
+  const el = document.getElementById("docLawCheckboxes");
+  if (!state.laws.length) {
+    el.innerHTML = `<span class="hint">먼저 "법령 마스터" 탭에서 법령을 등록하세요.</span>`;
+    return;
+  }
+  const categoryFilter = document.getElementById("docLawCategoryFilter").value;
+  const searchText = document.getElementById("docLawSearchInput").value.trim();
+  const filtered = sortLaws(state.laws).filter((l) => {
+    if (categoryFilter !== "" && String(lawCategoryRank(l.category)) !== categoryFilter) return false;
+    if (searchText && !l.name.includes(searchText)) return false;
+    return true;
+  });
+  if (!filtered.length) {
+    el.innerHTML = `<span class="hint">조건에 맞는 법령이 없습니다.</span>`;
+    return;
+  }
+  el.innerHTML = filtered
+    .map(
+      (l) => `
+    <label>
+      <input type="checkbox" class="doc-law-checkbox" value="${l.id}" ${selectedDocLawIds.has(l.id) ? "checked" : ""}>
+      ${escapeHtml(l.name)} <span class="hint">(${escapeHtml(l.category || "-")})</span>
+    </label>
+  `
+    )
+    .join("");
+  el.querySelectorAll(".doc-law-checkbox").forEach((cb) => {
+    cb.addEventListener("change", () => {
+      const id = Number(cb.value);
+      if (cb.checked) selectedDocLawIds.add(id);
+      else selectedDocLawIds.delete(id);
+    });
+  });
+}
+
+function openDocumentModal() {
+  document.getElementById("documentModalOverlay").hidden = false;
+}
+
+function closeDocumentModal() {
+  document.getElementById("documentModalOverlay").hidden = true;
+}
+
+function renderDocumentsTable() {
+  const el = document.getElementById("documentsTable");
+  if (!state.documents.length) {
+    el.innerHTML = `<div class="empty">등록된 사규가 없습니다.</div>`;
+    return;
+  }
+  el.innerHTML = `
+    <table>
+      <thead><tr><th>구분</th><th>문서번호</th><th>제목</th><th>개정번호</th><th>개정일자</th><th>담당자</th><th>키워드</th><th>근거 법령</th><th></th></tr></thead>
+      <tbody>
+        ${state.documents.map((d) => {
+          const mappedLaws = state.mappings
+            .filter((m) => m.document_id === d.id)
+            .map((m) => state.laws.find((l) => l.id === m.tracked_law_id))
+            .filter(Boolean);
+          return `
+          <tr>
+            <td>${escapeHtml(d.doc_type)}</td>
+            <td>${escapeHtml(d.doc_number || "-")}</td>
+            <td>${escapeHtml(d.title)}</td>
+            <td>${escapeHtml(d.revision_no || "-")}</td>
+            <td>${fmtDate(d.revision_date)}</td>
+            <td>${escapeHtml(d.owner || "-")}</td>
+            <td>${renderTagChips(d.tags)}</td>
+            <td>${mappedLaws.length ? mappedLaws.map((l) => escapeHtml(l.name)).join(", ") : '<span class="hint">없음</span>'}</td>
+            <td>
+              <button class="link-btn" data-edit-doc="${d.id}">수정</button>
+              <button class="link-btn" data-delete-doc="${d.id}">삭제</button>
+            </td>
+          </tr>
+        `;
+        }).join("")}
+      </tbody>
+    </table>
+  `;
+  el.querySelectorAll("[data-edit-doc]").forEach((btn) => {
+    btn.addEventListener("click", () => startEditDocument(Number(btn.dataset.editDoc)));
+  });
+  el.querySelectorAll("[data-delete-doc]").forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const id = Number(btn.dataset.deleteDoc);
+      if (!confirm("이 문서를 삭제할까요? (관련 매핑도 함께 삭제됩니다)")) return;
+      state.documents = state.documents.filter((d) => d.id !== id);
+      state.mappings = state.mappings.filter((m) => m.document_id !== id);
+      saveState();
+      toast("삭제했습니다.");
+      renderAll();
+    });
+  });
+}
+
+function startEditDocument(id) {
+  const d = state.documents.find((x) => x.id === id);
+  if (!d) return;
+  document.getElementById("documentFormTitle").textContent = "사규 수정";
+  document.getElementById("docId").value = d.id;
+  document.getElementById("docType").value = d.doc_type;
+  document.getElementById("docNumber").value = d.doc_number || "";
+  document.getElementById("docTitle").value = d.title;
+  document.getElementById("docRevisionNo").value = d.revision_no || "";
+  document.getElementById("docRevisionDate").value = d.revision_date || "";
+  document.getElementById("docOwner").value = d.owner || "";
+  document.getElementById("docTags").value = formatTagsForInput(d.tags);
+  document.getElementById("docNote").value = d.note || "";
+  document.getElementById("docLawCategoryFilter").value = "";
+  document.getElementById("docLawSearchInput").value = "";
+  selectedDocLawIds = new Set(state.mappings.filter((m) => m.document_id === id).map((m) => m.tracked_law_id));
+  renderDocLawCheckboxes();
+  openDocumentModal();
+}
+
+function resetDocumentForm() {
+  document.getElementById("documentFormTitle").textContent = "사규 추가";
+  document.getElementById("documentForm").reset();
+  document.getElementById("docId").value = "";
+  document.getElementById("docLawCategoryFilter").value = "";
+  document.getElementById("docLawSearchInput").value = "";
+  selectedDocLawIds = new Set();
+  renderDocLawCheckboxes();
+}
+
+// 문서를 저장한 뒤, 체크박스로 고른 법령 목록과 기존 매핑을 비교해서
+// 새로 추가된 건 등록하고 해제된 건 삭제한다.
+function syncDocumentLawMappings(documentId) {
+  const selectedLawIds = Array.from(selectedDocLawIds);
+  const existing = state.mappings.filter((m) => m.document_id === documentId);
+  const existingLawIds = new Set(existing.map((m) => m.tracked_law_id));
+  const toAdd = selectedLawIds.filter((lawId) => !existingLawIds.has(lawId));
+  const toRemoveIds = new Set(existing.filter((m) => !selectedLawIds.includes(m.tracked_law_id)).map((m) => m.id));
+
+  state.mappings = state.mappings.filter((m) => !toRemoveIds.has(m.id));
+  for (const lawId of toAdd) {
+    state.mappings.push({ id: nextId(), document_id: documentId, tracked_law_id: lawId, note: null });
+  }
+}
+
+function initDocumentForm() {
+  document.getElementById("documentForm").addEventListener("submit", (ev) => {
+    ev.preventDefault();
+    const id = document.getElementById("docId").value;
+    const payload = {
+      doc_type: document.getElementById("docType").value,
+      doc_number: document.getElementById("docNumber").value || null,
+      title: document.getElementById("docTitle").value,
+      revision_no: document.getElementById("docRevisionNo").value || null,
+      revision_date: document.getElementById("docRevisionDate").value || null,
+      owner: document.getElementById("docOwner").value || null,
+      tags: normalizeTagsInput(document.getElementById("docTags").value) || null,
+      note: document.getElementById("docNote").value || null,
+    };
+    if (!payload.title.trim()) { toast("제목을 입력하세요.", true); return; }
+
+    let docId;
+    if (id) {
+      docId = Number(id);
+      const doc = state.documents.find((d) => d.id === docId);
+      if (doc) Object.assign(doc, payload);
+      toast("수정했습니다.");
+    } else {
+      docId = nextId();
+      state.documents.push({ id: docId, ...payload });
+      toast("추가했습니다.");
+    }
+    syncDocumentLawMappings(docId);
+    saveState();
+    resetDocumentForm();
+    closeDocumentModal();
+    renderAll();
+  });
+  document.getElementById("docCancelBtn").addEventListener("click", () => {
+    resetDocumentForm();
+    closeDocumentModal();
+  });
+  document.getElementById("docModalCloseBtn").addEventListener("click", () => {
+    resetDocumentForm();
+    closeDocumentModal();
+  });
+  document.getElementById("docAddBtn").addEventListener("click", () => {
+    resetDocumentForm();
+    openDocumentModal();
+  });
+  document.getElementById("documentModalOverlay").addEventListener("click", (ev) => {
+    if (ev.target.id === "documentModalOverlay") {
+      resetDocumentForm();
+      closeDocumentModal();
+    }
+  });
+  document.getElementById("docLawCategoryFilter").addEventListener("change", renderDocLawCheckboxes);
+  document.getElementById("docLawSearchInput").addEventListener("input", renderDocLawCheckboxes);
+}
+
+// ---------- init ----------
+
+document.addEventListener("DOMContentLoaded", () => {
+  initTabs();
+  initDocumentForm();
+  initAlarmBell();
+  initHelpModal();
+  initKeywordSearch();
+  document.getElementById("searchBtn").addEventListener("click", searchLaws);
+  document.getElementById("searchQuery").addEventListener("keydown", (e) => { if (e.key === "Enter") { e.preventDefault(); searchLaws(); } });
+  let searchDebounceTimer = null;
+  document.getElementById("searchQuery").addEventListener("input", () => {
+    clearTimeout(searchDebounceTimer);
+    const query = document.getElementById("searchQuery").value.trim();
+    if (query.length < 2) { document.getElementById("searchResults").innerHTML = ""; return; }
+    searchDebounceTimer = setTimeout(searchLaws, 400);
+  });
+  document.getElementById("searchSourceType").addEventListener("change", () => {
+    if (document.getElementById("searchQuery").value.trim().length >= 2) searchLaws();
+  });
+  document.getElementById("seedDefaultsBtn").addEventListener("click", seedDefaultLaws);
+  document.getElementById("lawsFilterInput").addEventListener("input", (e) => {
+    lawsFilterText = e.target.value;
+    renderLawsTable();
+  });
+  document.getElementById("revisionStatusFilter").addEventListener("change", renderRevisions);
+  document.getElementById("revisionsSearchInput").addEventListener("input", renderRevisions);
+  document.getElementById("docRevisionStatusFilter").addEventListener("change", renderDocRevisions);
+  document.getElementById("docRevisionsSearchInput").addEventListener("input", renderDocRevisions);
+  document.getElementById("revisionsBulkApplyBtn").addEventListener("click", applyRevisionsBulkStatus);
+  document.getElementById("revisionsBulkDeleteBtn").addEventListener("click", deleteRevisionsBulk);
+  document.getElementById("simulateBtn").addEventListener("click", simulateRevision);
+  document.getElementById("resetBtn").addEventListener("click", () => {
+    if (!confirm("이 브라우저에 저장된 데모 데이터를 모두 초기화할까요?")) return;
+    state = { laws: [], revisions: [], documents: [], mappings: [], nextId: 1, newAdmrulCandidates: [] };
+    saveState();
+    toast("초기화했습니다.");
+    renderAll();
+  });
+  renderAll();
+});
+</script>
+</body>
+</html>

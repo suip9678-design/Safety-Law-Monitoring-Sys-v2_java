@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: safety-law-tracker
+    runtime: python
+    plan: free
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: LAW_API_OC
+        sync: false
+      - key: AUTO_SYNC_INTERVAL_HOURS
+        value: "0"
+      - key: DASHBOARD_USERNAME
+        sync: false
+      - key: DASHBOARD_PASSWORD
+        sync: false

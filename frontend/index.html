@@ -1,0 +1,743 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>안전보건 법령·고시 Monitoring</title>
+  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/pretendard/1.3.9/static/pretendard-dynamic-subset.min.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-brand">
+      <img src="favicon.svg" alt="" class="topbar-logo" />
+      <h1>안전보건 법령·고시 Monitoring</h1>
+    </div>
+    <div class="topbar-actions">
+      <span id="demoBadge" class="badge badge-warn" hidden>데모 모드</span>
+      <button id="integrationAlertBtn" class="btn btn-danger" hidden title="일부 외부 연동 설정을 확인하세요"></button>
+      <button id="alarmBell" class="alarm-bell" hidden title="새 개정 확인 (클릭하면 확인 처리)">
+        🔔 <span id="alarmBellCount"></span>
+      </button>
+      <span id="lastSyncInfo" class="hint"></span>
+      <button id="helpBtn" class="btn" title="사용 설명서 보기">도움말</button>
+      <button id="syncNowBtn" class="btn btn-primary">새로고침</button>
+    </div>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab-btn active" data-tab="dashboard">대시보드</button>
+    <button class="tab-btn" data-tab="news">안전보건 뉴스</button>
+    <button class="tab-btn" data-tab="laws">법령 마스터</button>
+    <button class="tab-btn" data-tab="revisions">개정 이력</button>
+    <button class="tab-btn" data-tab="kosha-guides">KOSHA 가이드</button>
+    <button class="tab-btn" data-tab="keyword-search">키워드 검색</button>
+    <span class="tabs-divider" title="법령 개정 확인(핵심 기능)이 안정적으로 자리잡은 뒤 점진적으로 확장해나가는 기능입니다">확장 기능</span>
+    <button class="tab-btn" data-tab="documents">사규</button>
+    <button class="tab-btn" data-tab="doc-revisions">사규 개정 이력</button>
+    <button class="tab-btn" data-tab="settings">설정</button>
+  </nav>
+
+  <main>
+    <section id="tab-dashboard" class="tab-panel active">
+      <div class="panel-box">
+        <form id="dashboardKeywordSearchForm" class="row" style="margin-bottom: 0;">
+          <input id="dashboardKeywordSearchInput" type="text" placeholder="키워드나 문장으로 법령·고시 본문을 검색합니다 (예: 화기작업)" style="flex: 1;" />
+          <button type="submit" class="btn btn-primary">키워드 검색</button>
+        </form>
+      </div>
+
+      <div class="cards" id="summaryCards"></div>
+
+      <div class="panel-box news-board">
+        <div class="news-board-header">
+          <h2>안전보건 이슈 · 중대재해 뉴스</h2>
+          <span id="newsDemoBadge" class="badge badge-warn" hidden title="실제 뉴스를 아직 못 가져와 예시 데이터로 채워져 있습니다">예시 데이터</span>
+          <button type="button" id="goToNewsPageBtn" class="btn" style="margin-left: auto;">전체보기 · 검색</button>
+        </div>
+        <p class="hint">고용노동부·안전보건공단 안전보건 이슈, 중대재해 관련 뉴스를 자동으로 모아 게시판처럼 스크롤로 보여줍니다. 항목을 클릭하면 원문으로 이동하고, 마우스를 올리면 스크롤이 멈춥니다.</p>
+        <div class="row news-board-filters" id="newsCategoryFilters">
+          <button type="button" class="news-filter-btn active" data-cat="">전체</button>
+          <button type="button" class="news-filter-btn" data-cat="moel">고용노동부</button>
+          <button type="button" class="news-filter-btn" data-cat="kosha">안전보건공단</button>
+          <button type="button" class="news-filter-btn" data-cat="accident">중대재해 뉴스</button>
+        </div>
+        <div id="newsBoard" class="news-board-viewport">
+          <div id="newsBoardTrack" class="news-board-track"></div>
+        </div>
+      </div>
+
+      <h2>법령 개정 리스트</h2>
+      <p class="hint">등록해둔 법령·고시에 실제 재개정이 감지되면 여기에 모두 표시됩니다. (핵심 기능)</p>
+      <div id="recentLawRevisions" class="table-wrap"></div>
+
+      <h2>신규 제정 고시 후보</h2>
+      <p class="hint">아직 등록하지 않은 고시·예규·훈령 중, 설정에서 지정한 소관부처+키워드에 모두 해당하는 것만 모아서 보여줍니다. "새로고침"을 누를 때마다 새로 찾습니다.</p>
+      <div id="newAdmrulCandidates" class="table-wrap"></div>
+
+      <h2>사내 절차서·지침서 개정 필요 사항</h2>
+      <p class="hint">근거 법령이 개정되어 아직 검토/반영되지 않은 절차서·지침서만 문서 기준으로 모아서 보여줍니다. (근거 법령 매핑 또는 키워드(해시태그) 자동 매칭 필요)</p>
+      <div id="recentDocImpacts" class="table-wrap"></div>
+    </section>
+
+    <section id="tab-news" class="tab-panel">
+      <div class="panel-box">
+        <div class="row" style="justify-content: space-between; margin-bottom: 0;">
+          <h2 style="margin: 0;">안전보건 이슈 · 중대재해 뉴스</h2>
+          <span id="newsPageDemoBadge" class="badge badge-warn" hidden title="실제 뉴스를 아직 못 가져와 예시 데이터로 채워져 있습니다">예시 데이터</span>
+        </div>
+        <p class="hint">
+          고용노동부·안전보건공단 안전보건 이슈, 중대재해 관련 뉴스를 카테고리·키워드·날짜로 검색합니다.
+          최근 뉴스만 훑어보려면 대시보드 상단의 자동 스크롤 게시판을 이용하고, 예전 기사를 찾거나 특정 기간의
+          사고 소식을 모아보려면 여기서 검색하세요. 뉴스는 발행일 기준 설정 &gt; 안전보건 뉴스 게시판의
+          <b>"보관 기간"</b>(기본 6개월)이 지나면 자동 삭제되므로 그보다 오래된 기사는 나오지 않습니다 — 계속 남겨두고
+          싶은 기사는 목록에서 <b>"보관"</b>을 눌러두면 기간이 지나도 삭제되지 않습니다.
+        </p>
+        <div class="row news-board-filters" id="newsPageCategoryFilters">
+          <button type="button" class="news-filter-btn active" data-cat="">전체</button>
+          <button type="button" class="news-filter-btn" data-cat="moel">고용노동부</button>
+          <button type="button" class="news-filter-btn" data-cat="kosha">안전보건공단</button>
+          <button type="button" class="news-filter-btn" data-cat="accident">중대재해 뉴스(사망사고)</button>
+          <button type="button" class="news-filter-btn" data-cat="issue">안전보건 이슈</button>
+        </div>
+        <form id="newsPageSearchForm" class="row">
+          <input id="newsPageQueryInput" type="text" placeholder="제목으로 검색 (예: 중대재해, 추락)" style="flex: 1; min-width: 200px;" />
+          <label>시작일 <input id="newsPageDateFrom" type="date" /></label>
+          <label>종료일 <input id="newsPageDateTo" type="date" /></label>
+          <label><input type="checkbox" id="newsPageArchivedOnly" /> 보관함만 보기</label>
+          <button type="submit" class="btn btn-primary">검색</button>
+          <button type="button" id="newsPageResetBtn" class="btn">초기화</button>
+        </form>
+        <p id="newsPageSearchStatus" class="hint"></p>
+        <div id="newsPageResults" class="table-wrap"></div>
+      </div>
+    </section>
+
+    <section id="tab-laws" class="tab-panel">
+      <div class="panel-box">
+        <h2>법령·고시 검색해서 추가</h2>
+        <div class="row">
+          <select id="searchSourceType">
+            <option value="all">전체(법령+행정규칙)</option>
+            <option value="law">법령(법률/시행령/시행규칙)</option>
+            <option value="admrul">행정규칙(고시/예규/훈령)</option>
+          </select>
+          <input id="searchQuery" type="text" placeholder="입력하면 자동으로 검색됩니다 (예: 산업안전보건법)" style="flex: 1; min-width: 240px;" />
+          <button id="searchBtn" class="btn">검색</button>
+        </div>
+        <div id="searchResults" class="table-wrap"></div>
+      </div>
+
+      <div class="panel-box">
+        <h2>현재 관리중인 법령</h2>
+        <div class="row">
+          <input id="lawsFilterInput" type="text" placeholder="이름/소관부처로 빠르게 찾기" />
+        </div>
+        <div id="lawsTable" class="table-wrap"></div>
+      </div>
+    </section>
+
+    <section id="tab-revisions" class="tab-panel">
+      <div class="row">
+        <label>상태 필터:
+          <select id="revisionStatusFilter">
+            <option value="">전체</option>
+            <option value="미검토">미검토</option>
+            <option value="검토중">검토중</option>
+            <option value="반영완료">반영완료</option>
+            <option value="해당없음">해당없음</option>
+          </select>
+        </label>
+        <input id="revisionsSearchInput" type="text" placeholder="법령명으로 빠르게 찾기" />
+        <span id="revisionLawFilterChip" hidden></span>
+      </div>
+      <div class="row">
+        <span id="revisionsSelectedCount" class="hint">0건 선택됨</span>
+        <select id="revisionsBulkStatus">
+          <option value="미검토">미검토</option>
+          <option value="검토중">검토중</option>
+          <option value="반영완료">반영완료</option>
+          <option value="해당없음">해당없음</option>
+        </select>
+        <button id="revisionsBulkApplyBtn" class="btn" disabled>선택 항목 일괄 변경</button>
+        <button id="revisionsBulkDeleteBtn" class="btn btn-danger" disabled>선택 항목 삭제</button>
+      </div>
+      <div id="revisionsTable" class="table-wrap"></div>
+    </section>
+
+    <section id="tab-kosha-guides" class="tab-panel">
+      <div class="panel-box">
+        <div class="row" style="justify-content: space-between; margin-bottom: 0;">
+          <h2 style="margin: 0;">KOSHA 가이드 등록</h2>
+          <div class="row" style="margin-bottom: 0;">
+            <button id="koshaGuideSyncBtn" class="btn">API로 동기화</button>
+            <button id="koshaGuideAddBtn" class="btn btn-primary">+ 가이드 추가</button>
+          </div>
+        </div>
+        <p class="hint">
+          한국산업안전보건공단(KOSHA)이 발간하는 기술지침(KOSHA GUIDE)을 관리하는 화면입니다. 설정 &gt; "KOSHA
+          가이드 Open API"에 공공데이터포털 인증키를 저장해뒀다면 <b>"API로 동기화"</b> 버튼으로 자동으로 채울 수
+          있고, 그 외에는 <b>"가이드 추가"</b>로 한 건씩 입력하거나 아래 "여러 건 한 번에 붙여넣기"로 갖고 계신
+          목록을 한 번에 등록할 수 있습니다.
+        </p>
+        <p id="koshaGuideSyncStatus" class="hint"></p>
+        <details>
+          <summary>여러 건 한 번에 붙여넣기 (일괄 등록)</summary>
+          <p class="hint">
+            한 줄에 하나씩, <b>지침번호, 분야, 제목, 제개정일자(YYYYMMDD), 링크</b> 순서로 쉼표(,)나 탭으로
+            구분해서 붙여넣으세요. 지침번호가 이미 등록되어 있으면 그 항목을 덮어쓰고, 없으면 새로 추가합니다
+            (같은 목록을 다시 붙여넣어도 중복 등록되지 않습니다). 지침번호를 모르면 맨 앞을 비워두고 쉼표만
+            남겨도 됩니다.<br />
+            예) <code>G-68-2022,안전분야,밀폐공간 작업 안전보건에 관한 기술지침,20220401,https://example.com/guide.pdf</code>
+          </p>
+          <textarea id="koshaGuideBulkInput" rows="6" placeholder="G-68-2022,안전분야,밀폐공간 작업 안전보건에 관한 기술지침,20220401,https://..."></textarea>
+          <div class="form-actions">
+            <button id="koshaGuideBulkImportBtn" class="btn">붙여넣은 목록 일괄 등록</button>
+            <span id="koshaGuideBulkResult" class="hint"></span>
+          </div>
+        </details>
+      </div>
+
+      <div class="panel-box">
+        <div class="row" style="justify-content: space-between; margin-bottom: 0;">
+          <h2 style="margin: 0;">본문 검색</h2>
+          <button id="koshaGuideCacheContentBtn" class="btn">본문 캐시 채우기</button>
+        </div>
+        <p class="hint">
+          지침번호·제목뿐 아니라, 본문(PDF 원문 텍스트)까지 대상으로 검색해 미리보기를 보여줍니다. 다만 동기화나
+          일괄 등록은 원문 링크만 주고 본문 텍스트 자체는 주지 않으므로, 검색에서 실제 내용까지 찾으려면 먼저
+          <b>"본문 캐시 채우기"</b>를 눌러 원문 링크가 있는 가이드들의 PDF에서 텍스트를 미리 뽑아둬야 합니다
+          (PDF를 직접 첨부한 가이드는 첨부하는 순간 자동으로 채워집니다). 한 번 누르면 남은 건수가 0이 될 때까지
+          (또는 더 이상 진행이 안 될 때까지) 자동으로 이어서 처리합니다. 이미 캐시해뒀고 그 뒤로 원문 링크가
+          바뀌지 않은 항목은 건너뛰므로, 나중에 다시 눌러도 새로 개정되어 링크가 바뀐 항목만 처리합니다.
+        </p>
+        <p id="koshaGuideCacheContentStatus" class="hint"></p>
+        <div class="row">
+          <input id="koshaGuideSearchInput" type="text" placeholder="키워드로 검색 (예: 밀폐공간)" style="flex: 1;" />
+          <button id="koshaGuideSearchBtn" class="btn btn-primary">검색</button>
+        </div>
+        <div id="koshaGuideSearchResults" class="table-wrap"></div>
+      </div>
+
+      <div class="panel-box">
+        <h2>등록된 KOSHA 가이드</h2>
+        <p class="hint">
+          제목을 누르면 동기화/등록 시 받아온 원문 링크로 바로 이동합니다. 원문 링크가 없는 항목은
+          제목이 클릭되지 않습니다 - "수정"에서 원문 링크를 직접 채워두거나, API 동기화가 링크를 못
+          채워온 경우라면 "수정"에서 PDF 파일을 직접 첨부해도 그때부터 클릭할 수 있습니다.
+        </p>
+        <div class="row">
+          <input id="koshaGuideFilterInput" type="text" placeholder="지침번호/제목/분야로 빠르게 찾기" />
+        </div>
+        <div class="row">
+          <span id="koshaGuidesSelectedCount" class="hint">0건 선택됨</span>
+          <button id="koshaGuidesBulkDeleteBtn" class="btn btn-danger" disabled>선택 항목 삭제</button>
+        </div>
+        <div id="koshaGuidesTable" class="table-wrap"></div>
+      </div>
+    </section>
+
+    <div id="koshaGuideModalOverlay" class="modal-overlay" hidden>
+      <div class="modal-box">
+        <button type="button" id="koshaGuideModalCloseBtn" class="modal-close" title="닫기" aria-label="닫기">&times;</button>
+        <h2 id="koshaGuideFormTitle">가이드 추가</h2>
+        <form id="koshaGuideForm" class="grid-form">
+          <input type="hidden" id="koshaGuideId" />
+          <label>지침번호 <input id="koshaGuideCode" type="text" placeholder="G-68-2022" /></label>
+          <label>분야 <input id="koshaGuideField" type="text" placeholder="안전분야" /></label>
+          <label class="full">제목 <input id="koshaGuideTitle" type="text" required /></label>
+          <label>제개정일자 <input id="koshaGuideIssuedDate" type="text" placeholder="YYYYMMDD" /></label>
+          <label>원문 링크 <input id="koshaGuideFileLink" type="text" /></label>
+          <div class="full">
+            PDF 직접 첨부
+            <p class="hint">
+              API 동기화는 원문 링크를 채워오지 못하는 경우가 많습니다 - 그럴 때 PDF 파일을 여기서 직접 올려두면,
+              위 "원문 링크"가 이 서버 안에 저장된 그 파일을 가리키도록 자동으로 채워집니다(외부로 전송되지 않습니다).
+            </p>
+            <div class="row">
+              <input id="koshaGuideFileUploadInput" type="file" accept="application/pdf" />
+              <button type="button" id="koshaGuideFileUploadBtn" class="btn">업로드</button>
+              <button type="button" id="koshaGuideFileDeleteBtn" class="link-btn" hidden>첨부 삭제</button>
+            </div>
+            <p id="koshaGuideFileUploadHint" class="hint"></p>
+          </div>
+          <label class="full">본문(선택 - 입력해두면 키워드 검색 대상에 포함됩니다) <textarea id="koshaGuideContent"></textarea></label>
+          <label class="full">비고 <textarea id="koshaGuideNote"></textarea></label>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">저장</button>
+            <button type="button" id="koshaGuideCancelBtn" class="btn">취소</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div id="koshaGuidePreviewModalOverlay" class="modal-overlay" hidden>
+      <div class="modal-box modal-wide">
+        <button type="button" id="koshaGuidePreviewCloseBtn" class="modal-close" title="닫기" aria-label="닫기">&times;</button>
+        <h2 id="koshaGuidePreviewTitle"></h2>
+        <p id="koshaGuidePreviewMeta" class="hint"></p>
+        <div id="koshaGuidePreviewBody" class="preview-body"></div>
+        <div class="form-actions">
+          <a id="koshaGuidePreviewOpenLink" href="#" target="_blank" rel="noopener" class="btn btn-primary">원문 열기</a>
+          <button type="button" id="koshaGuidePreviewCloseBtn2" class="btn">닫기</button>
+        </div>
+      </div>
+    </div>
+
+    <section id="tab-keyword-search" class="tab-panel">
+      <div class="panel-box">
+        <h2>키워드 검색</h2>
+        <p class="hint">
+          내가 등록해두었거나, 설정 &gt; 법령 본문 캐시로 미리 받아둔 법령·고시를 대상으로 키워드나 문장을 검색합니다.
+          법령명뿐 아니라 조문 본문 내용까지 검색되므로, 예를 들어 "화기작업"으로 검색하면 이름에 "화기작업"이 없어도
+          본문에 그 내용이 포함된 법령·고시까지 모두 찾아줍니다. 캐시가 비어 있으면 결과가 나오지 않으니, 먼저
+          <b>설정 &gt; 법령 본문 캐시</b>에서 새로고침해두세요.
+        </p>
+        <div class="row">
+          <select id="keywordSearchSourceType">
+            <option value="all">전체(법령+행정규칙)</option>
+            <option value="law">법령(법률/시행령/시행규칙)</option>
+            <option value="admrul">행정규칙(고시/예규/훈령)</option>
+          </select>
+          <input id="keywordSearchInput" type="text" placeholder="키워드 또는 문장으로 검색 (예: 화기작업)" style="flex: 1;" />
+          <button id="keywordSearchBtn" class="btn btn-primary">검색</button>
+        </div>
+        <div id="keywordSearchResults" class="table-wrap"></div>
+      </div>
+    </section>
+
+    <section id="tab-documents" class="tab-panel">
+      <div class="panel-box">
+        <div class="row" style="justify-content: space-between; margin-bottom: 0;">
+          <h2 style="margin: 0;">사규</h2>
+          <button id="docAddBtn" class="btn btn-primary">+ 사규 추가</button>
+        </div>
+      </div>
+      <div id="documentsTable" class="table-wrap"></div>
+    </section>
+
+    <section id="tab-doc-revisions" class="tab-panel">
+      <p class="hint">사규(회사 문서)와 관련된 개정 이력만 모아서 보여줍니다. "근거 법령"으로 직접 매핑했거나, "키워드(해시태그)"가 법령명/본문과 겹쳐 자동으로 매칭된 경우(<span class="tag-badge">#태그매칭</span> 표시) 모두 포함됩니다. 사규 추가/수정 화면에서 설정합니다.</p>
+      <div class="row">
+        <label>상태 필터:
+          <select id="docRevisionStatusFilter">
+            <option value="">전체</option>
+            <option value="미검토">미검토</option>
+            <option value="검토중">검토중</option>
+            <option value="반영완료">반영완료</option>
+            <option value="해당없음">해당없음</option>
+          </select>
+        </label>
+        <input id="docRevisionsSearchInput" type="text" placeholder="법령명/사규명으로 빠르게 찾기" />
+      </div>
+      <div id="docRevisionsTable" class="table-wrap"></div>
+    </section>
+
+    <div id="documentModalOverlay" class="modal-overlay" hidden>
+      <div class="modal-box">
+        <button type="button" id="docModalCloseBtn" class="modal-close" title="닫기" aria-label="닫기">&times;</button>
+        <h2 id="documentFormTitle">사규 추가</h2>
+        <form id="documentForm" class="grid-form">
+          <input type="hidden" id="docId" />
+          <label>구분
+            <select id="docType">
+              <option>절차서</option>
+              <option>지침서</option>
+              <option>작업표준</option>
+              <option>기타</option>
+            </select>
+          </label>
+          <label>문서번호 <input id="docNumber" type="text" /></label>
+          <label>제목 <input id="docTitle" type="text" required /></label>
+          <label>개정번호 <input id="docRevisionNo" type="text" /></label>
+          <label>개정일자 <input id="docRevisionDate" type="text" placeholder="YYYYMMDD" /></label>
+          <label>담당자 <input id="docOwner" type="text" /></label>
+          <label>문서 링크 <input id="docFileLink" type="text" /></label>
+          <label class="full">키워드(해시태그) <input id="docTags" type="text" placeholder="#밀폐공간 #공기호흡기" />
+            <span class="hint">근거 법령으로 직접 매핑하지 않아도, 이 키워드가 이름/본문에 들어간 법령·고시가 개정되면 자동으로 이 사규가 개정 필요 사항에 뜹니다. 공백으로 구분, "#"은 없어도 됩니다.</span>
+          </label>
+          <label class="full">근거 법령 (이 사규의 근거가 되는 법령·고시를 선택하면, 해당 법령이 개정될 때 이 사규가 대시보드의 "개정 필요 사항"에 표시됩니다)
+            <div class="row">
+              <select id="docLawCategoryFilter">
+                <option value="">구분: 전체</option>
+                <option value="0">법률</option>
+                <option value="1">대통령령</option>
+                <option value="2">부령(시행규칙)</option>
+                <option value="3">고시·예규·훈령 등</option>
+              </select>
+              <input id="docLawSearchInput" type="text" placeholder="법령명으로 검색" />
+            </div>
+            <div id="docLawCheckboxes" class="checkbox-list"></div>
+          </label>
+          <label class="full">비고 <textarea id="docNote"></textarea></label>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">저장</button>
+            <button type="button" id="docCancelBtn" class="btn">취소</button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <div id="helpModalOverlay" class="modal-overlay" hidden>
+      <div class="modal-box modal-wide">
+        <button type="button" id="helpModalCloseBtn" class="modal-close" title="닫기" aria-label="닫기">&times;</button>
+        <h2>사용 설명서</h2>
+        <p class="hint">
+          이 시스템은 별도의 기술지원 없이 사내에서 자체적으로 운영됩니다. 궁금한 점이 생기면 이 설명서를 먼저 확인해주세요 —
+          화면 곳곳의 회색 안내 문구(설정 탭 각 항목 아래)에도 같은 내용이 더 자세히 적혀 있습니다.
+        </p>
+
+        <div class="help-toc">
+          <a href="#help-start">처음 시작하기</a>
+          <a href="#help-security">보안/개인정보</a>
+          <a href="#help-dashboard">대시보드</a>
+          <a href="#help-news">안전보건 뉴스</a>
+          <a href="#help-laws">법령 마스터</a>
+          <a href="#help-revisions">개정 이력</a>
+          <a href="#help-kosha-guides">KOSHA 가이드</a>
+          <a href="#help-keyword">키워드 검색</a>
+          <a href="#help-documents">사규 / 사규 개정 이력</a>
+          <a href="#help-settings">설정</a>
+          <a href="#help-faq">자주 묻는 질문</a>
+        </div>
+
+        <div class="help-content">
+          <section id="help-start">
+            <h3>1. 처음 시작하기 (순서대로)</h3>
+            <ol>
+              <li><b>설정 &gt; 국가법령정보센터 Open API</b>에서 OC 키를 입력합니다. OC 키가 없으면 실제 법령 데이터 대신 예시(데모) 데이터로만 화면이 채워집니다.
+                발급 방법: <a href="https://open.law.go.kr" target="_blank" rel="noopener">open.law.go.kr</a>에서 회원가입 후 "오픈API" 신청 (승인되면 신청 시 쓴 아이디 앞부분이 OC 값입니다).</li>
+              <li><b>법령 마스터</b> 탭에서 관리할 법령·고시를 검색해서 추가합니다. 플랜트건설업 관련 기본 법령을 한 번에 넣고 싶다면 <b>설정 &gt; 플랜트건설업 기본 법령 세트</b>의 "기본 법령 세트 추가" 버튼을 눌러도 됩니다.</li>
+              <li>우측 상단의 <b>새로고침</b> 버튼을 한 번 눌러 최초 동기화를 실행합니다. (매일 자동으로도 실행되니 평소에는 굳이 안 눌러도 됩니다.)</li>
+              <li><b>설정 &gt; 신규 제정 고시 자동 탐지</b>에서 소관부처/키워드가 우리 회사와 맞는지 확인하고, <b>기준일</b>을 오늘 날짜로 넣어두면 이 프로그램을 설치하기 전의 오래된 고시가 "신규 후보"로 잔뜩 나오는 걸 막을 수 있습니다.</li>
+              <li><b>키워드 검색</b>을 쓰려면 본문이 미리 캐시되어 있어야 합니다. <b>설정 &gt; 법령 본문 캐시</b>(또는 더 넓은 범위가 필요하면 전체 법령 자동 캐시)에서 한 번 새로고침해두세요.</li>
+            </ol>
+          </section>
+
+          <section id="help-security">
+            <h3>보안/개인정보</h3>
+            <p>이 프로그램은 사용자의 PC(또는 사내 서버)에서 직접 실행됩니다. 등록한 법령·고시 정보와 사규(회사 문서) 정보는 로컬 데이터베이스 파일에만 저장되며,
+            국가법령정보센터(법령 조회) 외에는 어떤 외부 서버로도 전송되지 않습니다.</p>
+          </section>
+
+          <section id="help-dashboard">
+            <h3>대시보드</h3>
+            <ul>
+              <li><b>안전보건 이슈 · 중대재해 뉴스</b>: 고용노동부·안전보건공단 안전보건 이슈와 중대재해 뉴스를 자동 스크롤 게시판으로 보여줍니다. 항목을 클릭하면 원문으로 이동하고, 상단 필터로 기관별로 좁혀볼 수 있습니다. 출처(RSS 주소)는 설정 탭에서 바꿀 수 있습니다.</li>
+              <li><b>키워드 검색창</b>: 법령명뿐 아니라 본문(조문 내용)까지 검색합니다 (본문 캐시가 되어 있어야 결과가 나옵니다).</li>
+              <li><b>법령 개정 리스트</b>: 등록해둔 법령·고시가 실제로 재·개정된 것이 감지되면 여기 모두 표시됩니다 (이 시스템의 핵심 기능).</li>
+              <li><b>신규 제정 고시 후보</b>: 아직 등록하지 않은 고시·예규·훈령 중, 설정에서 지정한 소관부처+키워드(+기준일)에 맞는 것을 찾아 보여줍니다. "등록"을 누르면 정식으로 관리 목록에 추가되고, "무시"를 누르면 다시 뜨지 않습니다.</li>
+              <li><b>사내 절차서·지침서 개정 필요 사항</b>: 근거 법령이 개정된 사규만 문서 기준으로 모아서 보여줍니다 (사규 탭에서 근거 법령을 매핑하거나 키워드(해시태그)를 등록해둬야 나타납니다).</li>
+              <li>목록이 길어지면 표 안에서만 스크롤됩니다 — 계속 등록/무시를 눌러도 페이지 전체가 늘어지지 않습니다.</li>
+              <li>우측 상단의 종 모양 알림(🔔)은 아직 검토하지 않은 개정 건수를 보여주며, 클릭하면 확인 처리됩니다.</li>
+            </ul>
+          </section>
+
+          <section id="help-news">
+            <h3>안전보건 뉴스</h3>
+            <p>대시보드 게시판(자동 스크롤)과 같은 데이터를 대상으로, 별도 화면에서 카테고리·키워드(제목)·날짜 범위로 검색합니다.
+            "전체보기 · 검색" 버튼(대시보드 게시판 우측)이나 상단 탭에서 들어갈 수 있습니다. 뉴스는 발행일 기준 설정 &gt; 안전보건
+            뉴스 게시판의 "보관 기간"(기본 180일 = 6개월)이 지나면 자동 삭제됩니다 — 계속 남겨두고 싶은 기사는 목록에서
+            "보관"을 눌러두면 기간이 지나도 삭제되지 않고, "보관함만 보기"로 모아볼 수 있습니다. 더 넓은 기간을 검색하려면
+            설정에서 보관 기간 값을 늘려두세요. 조건에 맞는 뉴스가 하나도 없으면(보관 기간이 지나 정리됐거나, 애초에
+            이 화면이 다루는 3개 피드에 뜬 적 없는 기사인 경우) "외부 브라우저에서 검색하기" 버튼으로 같은 검색어를
+            구글 뉴스에서 바로 찾아볼 수 있습니다.</p>
+          </section>
+
+          <section id="help-laws">
+            <h3>법령 마스터</h3>
+            <p>법령명으로 검색해서 추적할 법령·고시를 추가/삭제하는 화면입니다. 여기에 등록된 항목만 "법령 개정 리스트"에서 자동으로 추적됩니다.
+            법령/시행령/시행규칙과 고시·예규·훈령(행정규칙)을 구분해서 검색할 수 있습니다.</p>
+          </section>
+
+          <section id="help-revisions">
+            <h3>개정 이력</h3>
+            <p>감지된 모든 개정 건의 이력입니다. 상태(미검토/검토중/반영완료/해당없음)로 필터링하거나, 여러 건을 한 번에 선택해서 상태를 일괄 변경할 수 있습니다.
+            검토 담당자가 실제로 사규에 반영했는지 확인하며 상태를 바꿔나가는 용도입니다.</p>
+          </section>
+
+          <section id="help-kosha-guides">
+            <h3>KOSHA 가이드</h3>
+            <p>한국산업안전보건공단(KOSHA)이 발간하는 기술지침(KOSHA GUIDE)을 등록해서 관리하는 화면입니다. 세 가지 방법으로 채울 수 있습니다:</p>
+            <ul>
+              <li><b>API로 동기화</b>: 공공데이터포털에서 "한국산업안전보건공단_안전보건법령 스마트검색" API 활용신청이 승인되면, 설정 &gt; "KOSHA 가이드 Open API"에 인증키를 저장한 뒤 이 버튼을 누르면 설정에 등록해둔 키워드로 자동 검색해서 채웁니다.</li>
+              <li><b>가이드 추가</b>: 한 건씩 직접 입력합니다.</li>
+              <li><b>여러 건 한 번에 붙여넣기(일괄 등록)</b>: "KOSHA 가이드 등록" 패널을 펼치면 갖고 있는 목록을 붙여넣어 한 번에 여러 건을 등록할 수 있습니다.</li>
+            </ul>
+            <p><b>등록된 KOSHA 가이드</b> 목록(또는 검색 결과)에서 제목을 누르면 저장된 원문 링크로 바로
+            이동합니다. API 동기화로 받아온 항목은 공공데이터포털 응답에 원문 링크가 없는 경우 제목이
+            클릭되지 않을 수 있는데, 그럴 땐 "수정"에서 원문 링크를 직접 채워두세요.</p>
+            <p>지침번호·제목뿐 아니라 본문(입력한 경우)까지 검색하려면 아래 <b>본문 검색</b> 패널을 사용하세요.</p>
+          </section>
+
+          <section id="help-keyword">
+            <h3>키워드 검색</h3>
+            <p>등록해두었거나 본문 캐시로 미리 받아둔 법령·고시를 대상으로 키워드/문장을 검색합니다. 법령명뿐 아니라 조문 본문까지 검색되므로
+            "화기작업"처럼 이름에는 없어도 본문에 포함된 내용까지 찾아줍니다. <b>결과가 안 나온다면 캐시가 비어 있는 경우가 대부분이니, 설정 &gt; 법령 본문 캐시(또는 전체 법령 자동 캐시)를 먼저 실행해주세요.</b>
+            검색 결과의 본문 발췌문을 클릭하면 국가법령정보센터의 해당 조문으로 바로 이동합니다 (조번호를 알 수 없는 별표/부칙 등은 법령 전체 페이지로 이동합니다).</p>
+          </section>
+
+          <section id="help-documents">
+            <h3>사규 / 사규 개정 이력</h3>
+            <p><b>사규</b> 탭에서 절차서·지침서 등 회사 문서를 등록하고, 그 문서의 근거가 되는 법령·고시를 직접 선택(매핑)하거나 키워드(해시태그)를 등록해둘 수 있습니다.
+            키워드를 등록해두면 근거 법령을 일일이 고르지 않아도, 그 키워드가 이름/본문에 포함된 법령·고시가 개정될 때 자동으로 이 문서가 "개정 필요 사항"에 뜹니다.
+            <b>사규 개정 이력</b> 탭은 이렇게 문서 기준으로 재구성한 개정 이력을 모아 보여줍니다.</p>
+          </section>
+
+          <section id="help-settings">
+            <h3>설정</h3>
+            <ul>
+              <li><b>플랜트건설업 기본 법령 세트</b>: 플랜트건설업 관련 안전보건 법령을 한 번에 검색해서 추가합니다. 이미 등록된 항목은 건너뛰므로 여러 번 눌러도 안전합니다.</li>
+              <li><b>신규 제정 고시 자동 탐지</b>: 소관부처 + 키워드(이중 필터) + 기준일로 신규 후보를 찾는 조건을 설정합니다. "새로고침"을 누를 때와 매일 새벽 1시에 자동 실행됩니다.</li>
+              <li><b>무시한 신규 고시 후보 관리</b>: "무시"를 누른 고시는 계속 숨겨지고 다시 안 뜹니다. 잘못 무시했거나 다시 필요해지면 여기서 찾아서 "복원"할 수 있습니다.</li>
+              <li><b>법령 본문 캐시</b>: 키워드 검색과 사규 키워드 자동 매칭에 쓰이는 본문 데이터를 새로고침합니다 ("신규 제정 고시" 설정의 부처/키워드 범위를 따릅니다).</li>
+              <li><b>안전보건 뉴스 게시판</b>: 대시보드 게시판에 표시할 고용노동부·안전보건공단·중대재해 뉴스의 RSS/Atom 피드 주소와 표시 여부를 설정합니다. 기본 주소로도 바로 동작하며, "지금 새로고침"으로 즉시 가져올 수 있습니다.</li>
+              <li><b>전체 법령 자동 캐시</b>: 부처/키워드에 상관없이 법령·행정규칙 전체를 대상으로 본문을 캐시합니다. 처음 한 번은 대상이 많아 몇 시간 이상 걸릴 수 있지만, 이후로는 바뀐 것만 다시 받아와 빨라집니다. 매일 새벽 1시 자동 실행 여부를 켜고 끌 수 있습니다.</li>
+              <li><b>국가법령정보센터 Open API</b>: OC 키를 입력/변경합니다. 비워두면 데모 데이터로 동작합니다.</li>
+              <li><b>KOSHA 가이드 Open API</b>: 공공데이터포털 "안전보건법령 스마트검색" API 인증키/요청 URL/동기화 키워드를 설정합니다. KOSHA 가이드 탭의 "API로 동기화" 버튼이 이 설정을 사용합니다.</li>
+              <li><b>자동 동기화</b>: 서버가 실행되어 있는 동안 자동으로 몇 시간마다 동기화할지 보여줍니다 (.env 설정, 관리자 영역).</li>
+            </ul>
+          </section>
+
+          <section id="help-faq">
+            <h3>자주 묻는 질문</h3>
+            <ul>
+              <li><b>데이터가 하나도 안 보여요.</b> 설정에서 OC 키가 입력되어 있는지, 법령 마스터에 법령이 하나 이상 등록되어 있는지 확인하세요.</li>
+              <li><b>새로고침을 눌러도 개정이 안 잡혀요.</b> 실제로 아직 개정되지 않은 것일 수 있습니다. 매일 새벽 1시에도 자동으로 확인하니 평소에는 그대로 두어도 됩니다.</li>
+              <li><b>키워드 검색 결과가 없어요.</b> 본문 캐시가 비어 있을 가능성이 큽니다. 설정 &gt; 법령 본문 캐시(또는 전체 법령 자동 캐시)에서 새로고침하세요.</li>
+              <li><b>전체 법령 자동 캐시가 너무 오래 걸려요.</b> 대상이 수만 건이라 처음 한 번만 그렇습니다. 공포번호가 바뀐 것만 다시 받아오므로, 두 번째 실행부터는 훨씬 빨라집니다.</li>
+              <li><b>프로그램(run.bat)을 껐다 켜면 데이터가 사라지나요?</b> 아니요. 모든 데이터는 이 PC에 파일로 저장되어 그대로 유지됩니다.</li>
+              <li><b>신규 제정 고시 후보에 예전 고시가 너무 많이 나와요.</b> 설정 &gt; 신규 제정 고시 자동 탐지에서 <b>기준일</b>을 오늘 날짜(또는 원하는 날짜)로 설정하세요. 그 이후 공포된 것만 후보로 표시됩니다.</li>
+              <li><b>분명히 조건에 맞는 고시인데 후보에 안 떠요.</b> 예전에 "무시"를 눌렀던 항목일 수 있습니다. 설정 &gt; 무시한 신규 고시 후보 관리에서 확인하고 "복원"해보세요.</li>
+            </ul>
+          </section>
+        </div>
+      </div>
+    </div>
+
+    <section id="tab-settings" class="tab-panel">
+      <div class="panel-box">
+        <h2>플랜트건설업 기본 법령 세트</h2>
+        <p class="hint">플랜트건설업에 저촉되는 안전보건 관련 법령·고시를 한 번에 검색해서 관리 목록에 추가합니다. 이미 관리 중인 항목은 건너뜁니다 — 다시 눌러도 안전합니다.</p>
+        <div class="row">
+          <button id="seedDefaultsBtn" class="btn btn-primary">기본 법령 세트 추가</button>
+        </div>
+        <div id="seedResults" class="table-wrap"></div>
+      </div>
+
+      <div class="panel-box">
+        <h2>신규 제정 고시 자동 탐지</h2>
+        <p class="hint">
+          고시는 기존 것이 "개정"되는 게 아니라 매년 새로 "제정"되는 경우가 많아, 등록해둔 항목만 추적해서는 놓칠 수 있습니다.
+          <b>소관부처</b>가 아래 부처와 일치하면서, 이름에 <b>키워드</b> 중 하나라도 포함된 아직 등록 안 한 고시·예규·훈령을 찾아 대시보드에 후보로 보여줍니다 (부처 AND 키워드, 이중 필터).
+          "새로고침"을 누를 때마다, 그리고 <b>매일 새벽 1시</b>에도 자동으로 실행됩니다.
+          <b>기준일</b>을 설정하면 그 날짜 이후에 공포된 것만 후보로 보여줍니다 (다른 PC에 설치할 때, 과거 고시가 전부 "신규"로 쏟아지는 걸 막는 용도). 비워두면 전체 기간이 대상입니다.
+        </p>
+        <form id="newAdmrulForm" class="grid-form">
+          <label>소관부처 <input id="newAdmrulDepartment" type="text" placeholder="고용노동부" /></label>
+          <label class="full">키워드(콤마로 구분) <input id="newAdmrulKeywords" type="text" placeholder="안전보건, 산업안전, 중대재해, 위험성평가" /></label>
+          <label>기준일(이후 공포분만) <input id="newAdmrulSinceDate" type="date" /></label>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">저장</button>
+          </div>
+        </form>
+
+        <h3>무시한 신규 고시 후보</h3>
+        <p class="hint">
+          "신규 제정 고시 후보"에서 "무시"를 누른 항목은 조건에 다시 맞아도 재등장하지 않습니다.
+          잘못 눌렀거나 다시 필요해진 항목은 여기서 확인하고 복원하면 다음 새로고침 때부터 다시 후보 목록에 나타납니다.
+        </p>
+        <div class="row">
+          <button id="loadDismissedBtn" class="btn">무시한 항목 보기</button>
+        </div>
+        <div id="dismissedAdmrulControls" hidden>
+          <div class="row">
+            <input id="dismissedAdmrulSearchInput" type="text" placeholder="이름으로 빠르게 찾기" />
+          </div>
+          <div class="row">
+            <span id="dismissedAdmrulSelectedCount" class="hint">0건 선택됨</span>
+            <button id="dismissedAdmrulBulkRestoreBtn" class="btn" disabled>선택 항목 일괄 복원</button>
+          </div>
+        </div>
+        <div id="dismissedAdmrulTable" class="table-wrap" hidden></div>
+      </div>
+
+      <div class="panel-box">
+        <h2>법령 본문 캐시</h2>
+        <p class="hint">
+          국가법령정보센터 API는 법령명 검색만 지원하고 전체 법령 대상 본문검색은 제공하지 않습니다.
+          그래서 <b>본문검색</b>과 사규 <b>키워드(해시태그) 자동 매칭</b>은 여기서 미리 받아둔 본문 캐시를 대상으로 동작합니다.
+          추적 중인 법령·고시의 본문은 동기화할 때마다 자동으로 갱신되고, 아직 등록하지 않은 법령까지 포함한 더 넓은 범위는 아래 버튼으로 직접 새로고침해야 합니다(위 "신규 제정 고시" 키워드/부처 설정을 그대로 사용합니다).
+        </p>
+        <div class="row">
+          <button id="refreshContentCacheBtn" class="btn btn-primary">본문 캐시 새로고침</button>
+          <span id="contentCacheStatus" class="hint"></span>
+        </div>
+      </div>
+
+      <div class="panel-box">
+        <h2>전체 법령 자동 캐시</h2>
+        <p class="hint">
+          위 "본문 캐시 새로고침"은 "신규 제정 고시" 키워드에 걸리는 법령·고시만 대상이라, 안전보건과 직접 관련 없어 보이는 법령(예: 도로교통법의 "과속")은 키워드 검색에 잡히지 않습니다.
+          이 기능을 켜면 <b>매일 새벽 1시</b>에 법령(법률/시행령/시행규칙)과 행정규칙(고시/예규/훈령) <b>전체(모든 부처)</b>를 목록 조회 API로 끝까지 훑어 본문을 캐시합니다 - 아직 등록/키워드 매칭 안 된 것도 모두 포함됩니다.
+          공포번호가 바뀌지 않은 항목은 상세조회를 건너뛰어서, <b>처음 한 번(수만 건 대상이라 몇 시간 이상 걸릴 수 있음)만 오래 걸리고 그다음부터는 실제로 개정·신규 제정된 것만 다시 받아와 훨씬 빨라집니다.</b>
+          (같은 새벽 1시에 위 "신규 제정 고시 자동 탐지"도 함께 실행됩니다. 새벽 1시에 컴퓨터가 꺼져 있어 못 돌았다면, 프로그램을 다음에 켤 때 대신 한 번 자동으로 실행됩니다.)
+        </p>
+        <div class="row">
+          <label><input type="checkbox" id="fullLawCacheEnabled" /> 매일 자동 실행 (새벽 1시, 못 돌았으면 다음 실행 시 대신)</label>
+          <button id="saveFullLawCacheBtn" class="btn">저장</button>
+        </div>
+        <div class="row">
+          <button id="startFullLawCacheBtn" class="btn btn-primary">지금 바로 시작</button>
+          <span id="fullLawCacheStatus" class="hint"></span>
+        </div>
+      </div>
+
+      <div class="panel-box">
+        <h2>안전보건 뉴스 게시판</h2>
+        <p class="hint">
+          대시보드 상단에 자동 스크롤로 표시되는 고용노동부·안전보건공단 안전보건 이슈, 중대재해 뉴스의 출처(RSS/Atom 피드 주소)를 설정합니다.
+          기본값은 구글 뉴스 검색 RSS(<code>news.google.com/rss/search</code>)로 채워져 있어 별도 설정 없이도 동작하지만,
+          고용노동부·안전보건공단의 공식 RSS 주소를 알고 있다면 그 주소로 바꿔도 됩니다(표준 RSS 2.0 또는 Atom 형식이면 어떤 주소든 동작합니다).
+          피드를 가져오지 못하는 동안(네트워크 차단 등)에는 게시판이 비어 보이지 않도록 예시 데이터로 채워지며, 대시보드에 "예시 데이터" 표시가 함께 뜹니다.
+        </p>
+        <form id="newsSettingsForm" class="grid-form">
+          <label class="full"><input type="checkbox" id="newsTickerEnabled" /> 대시보드에 뉴스 게시판 표시</label>
+          <label class="full">고용노동부 피드 URL <input id="newsSourceMoelUrl" type="text" placeholder="https://..." /></label>
+          <label class="full">안전보건공단 피드 URL <input id="newsSourceKoshaUrl" type="text" placeholder="https://..." /></label>
+          <label class="full">중대재해 뉴스 피드 URL <input id="newsSourceAccidentUrl" type="text" placeholder="https://..." /></label>
+          <label class="full">보관 기간(일) <input id="newsRetentionDays" type="number" min="7" max="3650" style="max-width: 160px;" />
+            <span class="hint">
+              발행일 기준 이 기간(기본 180일 = 6개월)이 지난 뉴스는 자동 삭제됩니다. "안전보건 뉴스" 탭에서 개별 항목을
+              "보관" 처리해두면 기간이 지나도 삭제되지 않고 계속 남습니다. 이 값이 곧 검색 가능한 기간이기도 합니다.
+            </span>
+          </label>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">저장</button>
+            <button type="button" id="newsSyncNowBtn" class="btn">지금 새로고침</button>
+          </div>
+        </form>
+        <p id="newsSettingsStatus" class="hint"></p>
+      </div>
+
+      <div class="panel-box">
+        <h2>국가법령정보센터 Open API</h2>
+        <p class="hint">
+          OC 키가 없으면 데모 데이터로 화면을 확인할 수 있습니다.
+          발급: <a href="https://open.law.go.kr" target="_blank" rel="noopener">open.law.go.kr</a> 회원가입 후 오픈API 신청.
+        </p>
+        <div class="row">
+          <input id="settingOc" type="text" placeholder="OC 키" />
+          <button id="saveOcBtn" class="btn btn-primary">저장</button>
+        </div>
+        <p id="ocStatus" class="hint"></p>
+      </div>
+
+      <div class="panel-box">
+        <h2>KOSHA 가이드 Open API (기술지원규정 조회서비스)</h2>
+        <p class="hint">
+          공공데이터포털에서 "한국산업안전보건공단_기술지원규정(코샤가이드) 조회서비스" API 활용신청이 승인되면
+          여기에 인증키를 입력하고 <b>KOSHA 가이드</b> 탭의 "API로 동기화"를 눌러 KOSHA GUIDE 전체 목록(지침번호·
+          명칭·공표일자·원문 다운로드 링크 포함)을 한 번에 받아올 수 있습니다. 검색 키워드를 따로 등록할 필요
+          없이 전체를 받아옵니다. 인증키는 공공데이터포털 활용신청 상세페이지의 <b>"일반 인증키"</b>를 그대로
+          붙여넣으면 됩니다(Encoding/Decoding 어느 쪽이든 상관없습니다). <b>요청 URL 주의</b>: 그 페이지의
+          "서비스 URL" 칸에는 <code>.../B552468/koshaguide</code>까지만 나오고 뒤에 붙는 오퍼레이션 경로
+          (<code>/getKoshaGuide</code>)가 빠져 있으니, 아래 기본값처럼 <code>/getKoshaGuide</code>까지 붙은
+          형태여야 동작합니다.
+        </p>
+        <form id="koshaGuideApiForm" class="grid-form">
+          <label>인증키(서비스키) <input id="koshaGuideApiKey" type="text" placeholder="공공데이터포털에서 발급받은 인증키" /></label>
+          <label>요청 URL <input id="koshaGuideApiUrl" type="text" placeholder="https://apis.data.go.kr/..." /></label>
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary">저장</button>
+          </div>
+        </form>
+        <p id="koshaGuideApiStatus" class="hint"></p>
+      </div>
+
+      <div class="panel-box">
+        <h2>자동 동기화</h2>
+        <p class="hint" id="autoSyncHint"></p>
+        <p class="hint">
+          서버를 상시 띄워두지 않는 경우, <code>scripts/sync_cli.py</code>를 OS의 cron / 작업 스케줄러에 등록해
+          매일 자동으로 확인하도록 설정할 수 있습니다. 자세한 방법은 README를 참고하세요.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <div id="integrationStatusModalOverlay" class="modal-overlay" hidden>
+    <div class="modal-box">
+      <button type="button" id="integrationStatusCloseBtn" class="modal-close" title="닫기" aria-label="닫기">&times;</button>
+      <h2>외부 연동 상태</h2>
+      <p class="hint">
+        API가 없거나 URL이 잘못되어 있으면 아래에서 바로 값을 입력하고 저장할 수 있습니다.
+        (뉴스 피드는 한 번이라도 수집을 시도해야 정상/예시 데이터 여부를 알 수 있습니다.)
+      </p>
+
+      <div class="panel-box">
+        <div class="row" style="justify-content: space-between; margin-bottom: 4px;">
+          <b>국가법령정보센터 Open API</b>
+          <span id="intStatusLawApi" class="hint"></span>
+        </div>
+        <div class="row">
+          <input id="intLawApiOc" type="text" placeholder="OC 키" style="flex: 1;" />
+          <button type="button" class="btn btn-primary" data-save-integration="law_api_oc">저장</button>
+        </div>
+      </div>
+
+      <div class="panel-box">
+        <div class="row" style="justify-content: space-between; margin-bottom: 4px;">
+          <b>KOSHA 가이드 Open API</b>
+          <span id="intStatusKoshaApi" class="hint"></span>
+        </div>
+        <div class="row">
+          <input id="intKoshaApiKey" type="text" placeholder="인증키" style="flex: 1;" />
+        </div>
+        <div class="row">
+          <input id="intKoshaApiUrl" type="text" placeholder="요청 URL" style="flex: 1;" />
+          <button type="button" class="btn btn-primary" data-save-integration="kosha_guide_api">저장</button>
+        </div>
+      </div>
+
+      <div class="panel-box">
+        <div class="row" style="justify-content: space-between; margin-bottom: 4px;">
+          <b>안전보건 뉴스 - 고용노동부</b>
+          <span id="intStatusNewsMoel" class="hint"></span>
+        </div>
+        <div class="row">
+          <input id="intNewsMoelUrl" type="text" style="flex: 1;" />
+          <button type="button" class="btn btn-primary" data-save-integration="news_source_moel_url">저장</button>
+        </div>
+      </div>
+
+      <div class="panel-box">
+        <div class="row" style="justify-content: space-between; margin-bottom: 4px;">
+          <b>안전보건 뉴스 - 안전보건공단</b>
+          <span id="intStatusNewsKosha" class="hint"></span>
+        </div>
+        <div class="row">
+          <input id="intNewsKoshaUrl" type="text" style="flex: 1;" />
+          <button type="button" class="btn btn-primary" data-save-integration="news_source_kosha_url">저장</button>
+        </div>
+      </div>
+
+      <div class="panel-box" style="margin-bottom: 0;">
+        <div class="row" style="justify-content: space-between; margin-bottom: 4px;">
+          <b>안전보건 뉴스 - 중대재해</b>
+          <span id="intStatusNewsAccident" class="hint"></span>
+        </div>
+        <div class="row">
+          <input id="intNewsAccidentUrl" type="text" style="flex: 1;" />
+          <button type="button" class="btn btn-primary" data-save-integration="news_source_accident_url">저장</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="toast" class="toast" hidden></div>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
